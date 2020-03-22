@@ -36,6 +36,7 @@ class OverviewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpToolbar()
+        subscribeToOverviewData()
     }
 
     private fun setUpToolbar() {
@@ -44,20 +45,8 @@ class OverviewFragment : Fragment() {
             (it as AppCompatActivity).supportActionBar?.title = it.getString(R.string.overview)
         }
     }
-
-    override fun onStart() {
-        super.onStart()
-
-        subscribeToOverviewData()
-        locale_card.setOnClickListener {
-            activity?.let {
-                (it as MainActivity).showCountryStats(getCountryFromTelephonyManager())
-            }
-        }
-    }
-
     private fun subscribeToOverviewData() {
-        viewModel.getOverview().observe(this, Observer { overview ->
+        viewModel.getOverview().observe(viewLifecycleOwner, Observer { overview ->
             confirmed_textview.text = String.format("%,d", overview.confirmed.confirmedCasesCount)
             recovered_textview.text = String.format("%,d", overview.recovered.recoveredCasesCount)
             deaths_textview.text = String.format("%,d", overview.deaths.deathCasesCount)
