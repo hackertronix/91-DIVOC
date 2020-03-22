@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         if (countryStatsFragment == null) {
             countryStatsFragment = CountryStatsFragment.newInstance("IN")
             fragmentManager.beginTransaction()
-                .add(R.id.container, countryStatsFragment, COUNTRY_STATS_FRAGMENT)
+                .replace(R.id.container, countryStatsFragment, COUNTRY_STATS_FRAGMENT)
                 .addToBackStack(COUNTRY_STATS_FRAGMENT)
                 .commit()
         }
@@ -50,6 +50,8 @@ class MainActivity : AppCompatActivity() {
         menu?.get(0)?.icon = resources.getDrawable(drawableId, theme)
         return true
     }
+
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
