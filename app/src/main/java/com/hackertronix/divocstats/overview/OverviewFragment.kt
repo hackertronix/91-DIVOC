@@ -57,7 +57,7 @@ class OverviewFragment : Fragment() {
     }
 
     private fun subscribeToOverviewData() {
-        viewModel.getOverview().observe(this, Observer { overview ->
+        viewModel.getOverview().observe(viewLifecycleOwner, Observer { overview ->
             confirmed_textview.text = String.format("%,d", overview.confirmed.confirmedCasesCount)
             recovered_textview.text = String.format("%,d", overview.recovered.recoveredCasesCount)
             deaths_textview.text = String.format("%,d", overview.deaths.deathCasesCount)
