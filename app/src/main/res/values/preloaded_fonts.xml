@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/archivo_black</item>
+        <item>@font/michroma</item>
+        <item>@font/oswald_bold</item>
+        <item>@font/rubik</item>
+        <item>@font/rubik_light</item>
+        <item>@font/rubik_medium</item>
+        <item>@font/rubik_mono_one</item>
+    </array>
+</resources>

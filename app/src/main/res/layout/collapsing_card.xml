@@ -1,0 +1,56 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="156dp"
+    android:layout_marginStart="@dimen/margin_large"
+    android:layout_marginTop="48dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="48dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/confirmed"
+            style="@style/TextAppearance.Divoc.CollapsingHeader.Label"
+            android:layout_width="0dp"
+            android:textAllCaps="true"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:textColor="?android:textColorSecondary"
+            tools:text="@string/confirmed_header" />
+
+        <TextView
+            android:id="@+id/recovered"
+            style="@style/TextAppearance.Divoc.CollapsingHeader.Label"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:textAllCaps="true"
+            android:layout_weight="1"
+            android:textColor="@color/android_green"
+            tools:text="@string/recovered_header" />
+
+        <TextView
+            android:id="@+id/deaths"
+            style="@style/TextAppearance.Divoc.CollapsingHeader.Label"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:textAllCaps="true"
+            android:layout_weight="1"
+            android:textColor="@color/red"
+            tools:text="@string/deaths_header" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/updated_at"
+        style="@style/TextAppearance.Divoc.CollapsingHeader"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:textAllCaps="true"
+        android:layout_marginTop="@dimen/margin_small"
+        android:textColor="?android:textColorPrimary"
+        tools:text="@string/updated_at_header" />
+</LinearLayout>
+

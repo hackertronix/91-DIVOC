@@ -1,0 +1,171 @@
+<!--
+  ~ Copyright 2018 Google LLC
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="AlertDialog.Theme" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="materialAlertDialogTitleTextStyle">@style/AlertDialog.TitleText</item>
+        <item name="materialAlertDialogTitlePanelStyle">@style/AlertDialog.TitlePanel</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/AlertDialog.BodyText</item>
+    </style>
+
+
+
+    <style name="AlertDialog.TitleText" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:fontFamily">@font/rubik_medium</item>
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/rubik_medium</item>
+    </style>
+
+    <style name="AlertDialog.TitlePanel" parent="MaterialAlertDialog.MaterialComponents.Title.Panel">
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingTop">?attr/dialogPreferredPadding</item>
+    </style>
+
+    <style name="AlertDialog.BodyText" parent="MaterialAlertDialog.MaterialComponents.Body.Text">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+    </style>
+
+
+
+    <style name="TextAppearance.Divoc.Body" parent="@style/TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="fontFamily">@font/rubik</item>
+    </style>
+
+    <style name="TextAppearance.Divoc.CardHeadline" parent="@style/TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="fontFamily">@font/rubik_medium</item>
+    </style>
+
+    <style name="TextAppearance.Divoc.CardBody" parent="@style/TextAppearance.MaterialComponents.Headline2">
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="fontFamily">@font/archivo_black</item>
+    </style>
+    <style name="TextAppearance.Divoc.SmallCardBody" parent="@style/TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="fontFamily">@font/archivo_black</item>
+    </style>
+
+    <style name="TextAppearance.Divoc.ToolbarTitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:fontFamily">@font/archivo_black</item>
+        <item name="android:textSize" tools:ignore="SpUsage">20dp</item>
+    </style>
+    <style name="TextAppearance.Divoc.ToolbarTitleExpanded" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:fontFamily">@font/archivo_black</item>
+        <item name="android:textSize" tools:ignore="SpUsage">30dp</item>
+    </style>
+
+    <style name="TextAppearance.Divoc.SessionTitle" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:fontFamily">@font/rubik_medium</item>
+    </style>
+
+    <style name="TextAppearance.Divoc.CollapsingHeader" parent="@style/TextAppearance.MaterialComponents.Caption">
+        <item name="android:fontFamily">@font/rubik</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="TextAppearance.Divoc.CollapsingHeader.Label" parent="@style/TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="fontFamily">@font/rubik_medium</item>
+    </style>
+
+    <style name="TextAppearance.Divoc.ListSecondary" parent="@style/TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
+    <style name="TextAppearance.Divoc.ReservationStatus" parent="@style/TextAppearance.Divoc.ListSecondary">
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="TextAppearance.Divoc.Tag" parent="@style/TextAppearance.Divoc.ListSecondary" />
+
+    <style name="TextAppearance.Divoc.AgendaTitle" parent="@style/TextAppearance.AppCompat.Body1">
+        <item name="android:fontFamily">@font/rubik</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Divoc.SessionTitle.Display" parent="@style/TextAppearance.AppCompat.Display1">
+        <item name="android:fontFamily">@font/rubik</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.Divoc.Tab" parent="@style/TextAppearance.Design.Tab">
+        <item name="android:fontFamily">@font/rubik</item>
+        <item name="android:textStyle">bold</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="TextAppearance.Divoc.BottomNav" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:fontFamily">@font/rubik</item>
+        <item name="fontFamily">@font/rubik</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextAppearance.Divoc.H1" parent="@style/TextAppearance.AppCompat.Headline">
+        <item name="android:fontFamily">@font/rubik</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.Divoc.FlagH5" parent="@style/TextAppearance.MaterialComponents.Headline5">
+        <item name="android:fontFamily">@font/rubik</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+  
+    <style name="TextAppearance.Divoc.Subhead" parent="@style/TextAppearance.Divoc.Body">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="TextAppearance.Divoc.SpeakerTitle" parent="@style/TextAppearance.Divoc.SessionTitle">
+        <item name="android:textColor">?colorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.Divoc.FadingSnackbarAction" parent="@style/TextAppearance.AppCompat.Button">
+        <item name="android:textColor">@color/android_green</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/rubik</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="TextAppearance.Divoc.Links" parent="@style/TextAppearance.Divoc.Body">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textColorLink">?colorPrimary</item>
+        <item name="android:fontFamily">@font/rubik</item>
+    </style>
+
+    <style name="Widget.Divoc" parent="@android:style/Widget" />
+
+    <style name="Widget.Divoc.BottomNav" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemTextAppearanceActive">@style/TextAppearance.Divoc.BottomNav</item>
+        <item name="itemTextAppearanceInactive">@style/TextAppearance.Divoc.BottomNav</item>
+        <item name="labelVisibilityMode">labeled</item>
+    </style>
+
+    <style name="Widget.Divoc.AppBar" parent="Widget.MaterialComponents.AppBarLayout.Surface">
+        <item name="android:elevation">8dp</item>
+    </style>
+
+    <style name="Widget.Divoc.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="popupTheme">@style/AppTheme.PopupTheme</item>
+        <item name="titleTextAppearance">@style/TextAppearance.Divoc.ToolbarTitle</item>
+    </style>
+
+</resources>

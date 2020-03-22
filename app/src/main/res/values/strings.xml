@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">91-DIVOC</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="overview">Overview</string>
+    <string name="country">Country</string>
+    <string name="country_stats">Country Stats %s</string>
+    <string name="help">Help</string>
+    <string name="confirmed">Confirmed</string>
+    <string name="confirmed_header">Confirmed: %d</string>
+    <string name="recovered_header">Recovered: %d</string>
+    <string name="deaths_header">Deaths: %d</string>
+    <string name="recovered">Recovered</string>
+    <string name="death">Deaths</string>
+    <string name="updated_at">📆 %s \u0020  \u0020 🕓 %s</string>
+    <string name="updated_at_header">Updated on \u0020 📆 %s \u0020  \u0020 🕓 %s</string>
+    <string name="see_your_country_s_stats">See your country\'s detailed stats</string>
+</resources>

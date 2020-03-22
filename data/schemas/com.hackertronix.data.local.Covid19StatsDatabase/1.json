@@ -1,0 +1,3460 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "a713aa7e8c892ee0430da7fc0b7d87a8",
+    "entities": [
+      {
+        "tableName": "Confirmed",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`confirmedId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `confirmedCasesCount` INTEGER NOT NULL, `confirmedCasesDetail` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "confirmedId",
+            "columnName": "confirmedId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "confirmedCasesCount",
+            "columnName": "confirmedCasesCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "confirmedCasesDetail",
+            "columnName": "confirmedCasesDetail",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "confirmedId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Deaths",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`deathId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `deathCasesCount` INTEGER NOT NULL, `deathCasesDetail` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "deathId",
+            "columnName": "deathId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deathCasesCount",
+            "columnName": "deathCasesCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deathCasesDetail",
+            "columnName": "deathCasesDetail",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "deathId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Recovered",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`recoveredId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `recoveredCasesCount` INTEGER NOT NULL, `recoveredCasesDetail` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "recoveredId",
+            "columnName": "recoveredId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recoveredCasesCount",
+            "columnName": "recoveredCasesCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recoveredCasesDetail",
+            "columnName": "recoveredCasesDetail",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "recoveredId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Overview",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`lastUpdate` TEXT NOT NULL, `confirmedId` INTEGER NOT NULL, `confirmedCasesCount` INTEGER NOT NULL, `confirmedCasesDetail` TEXT NOT NULL, `recoveredId` INTEGER NOT NULL, `recoveredCasesCount` INTEGER NOT NULL, `recoveredCasesDetail` TEXT NOT NULL, `deathId` INTEGER NOT NULL, `deathCasesCount` INTEGER NOT NULL, `deathCasesDetail` TEXT NOT NULL, PRIMARY KEY(`lastUpdate`))",
+        "fields": [
+          {
+            "fieldPath": "lastUpdate",
+            "columnName": "lastUpdate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "confirmed.confirmedId",
+            "columnName": "confirmedId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "confirmed.confirmedCasesCount",
+            "columnName": "confirmedCasesCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "confirmed.confirmedCasesDetail",
+            "columnName": "confirmedCasesDetail",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recovered.recoveredId",
+            "columnName": "recoveredId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recovered.recoveredCasesCount",
+            "columnName": "recoveredCasesCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recovered.recoveredCasesDetail",
+            "columnName": "recoveredCasesDetail",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deaths.deathId",
+            "columnName": "deathId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deaths.deathCasesCount",
+            "columnName": "deathCasesCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deaths.deathCasesDetail",
+            "columnName": "deathCasesDetail",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "lastUpdate"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Countries",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `afghanistan` TEXT NOT NULL, `alandIslands` TEXT NOT NULL, `albania` TEXT NOT NULL, `algeria` TEXT NOT NULL, `americanSamoa` TEXT NOT NULL, `andorra` TEXT NOT NULL, `angola` TEXT NOT NULL, `anguilla` TEXT NOT NULL, `antarctica` TEXT NOT NULL, `antiguaAndBarbuda` TEXT NOT NULL, `argentina` TEXT NOT NULL, `armenia` TEXT NOT NULL, `aruba` TEXT NOT NULL, `australia` TEXT NOT NULL, `austria` TEXT NOT NULL, `azerbaijan` TEXT NOT NULL, `bahamas` TEXT NOT NULL, `bahrain` TEXT NOT NULL, `bangladesh` TEXT NOT NULL, `barbados` TEXT NOT NULL, `belarus` TEXT NOT NULL, `belgium` TEXT NOT NULL, `belize` TEXT NOT NULL, `benin` TEXT NOT NULL, `bermuda` TEXT NOT NULL, `bhutan` TEXT NOT NULL, `bolivia` TEXT NOT NULL, `bonaireSaintEustatiusAndSaba` TEXT NOT NULL, `bosniaAndHerzegovina` TEXT NOT NULL, `botswana` TEXT NOT NULL, `bouvetIsland` TEXT NOT NULL, `brazil` TEXT NOT NULL, `britishIndianOceanTerritory` TEXT NOT NULL, `britishVirginIslands` TEXT NOT NULL, `brunei` TEXT NOT NULL, `bulgaria` TEXT NOT NULL, `burkinaFaso` TEXT NOT NULL, `burundi` TEXT NOT NULL, `cambodia` TEXT NOT NULL, `cameroon` TEXT NOT NULL, `canada` TEXT NOT NULL, `capeVerde` TEXT NOT NULL, `caymanIslands` TEXT NOT NULL, `centralAfricanRepublic` TEXT NOT NULL, `chad` TEXT NOT NULL, `chile` TEXT NOT NULL, `christmasIsland` TEXT NOT NULL, `cocosIslands` TEXT NOT NULL, `colombia` TEXT NOT NULL, `comoros` TEXT NOT NULL, `cookIslands` TEXT NOT NULL, `costaRica` TEXT NOT NULL, `croatia` TEXT NOT NULL, `cuba` TEXT NOT NULL, `curacao` TEXT NOT NULL, `cyprus` TEXT NOT NULL, `czechRepublic` TEXT NOT NULL, `democraticRepublicOfTheCongo` TEXT NOT NULL, `denmark` TEXT NOT NULL, `djibouti` TEXT NOT NULL, `dominica` TEXT NOT NULL, `dominicanRepublic` TEXT NOT NULL, `eastTimor` TEXT NOT NULL, `ecuador` TEXT NOT NULL, `egypt` TEXT NOT NULL, `elSalvador` TEXT NOT NULL, `equatorialGuinea` TEXT NOT NULL, `eritrea` TEXT NOT NULL, `estonia` TEXT NOT NULL, `ethiopia` TEXT NOT NULL, `falklandIslands` TEXT NOT NULL, `faroeIslands` TEXT NOT NULL, `fiji` TEXT NOT NULL, `finland` TEXT NOT NULL, `france` TEXT NOT NULL, `frenchGuiana` TEXT NOT NULL, `frenchPolynesia` TEXT NOT NULL, `frenchSouthernTerritories` TEXT NOT NULL, `gabon` TEXT NOT NULL, `gambia` TEXT NOT NULL, `georgia` TEXT NOT NULL, `germany` TEXT NOT NULL, `ghana` TEXT NOT NULL, `gibraltar` TEXT NOT NULL, `greece` TEXT NOT NULL, `greenland` TEXT NOT NULL, `grenada` TEXT NOT NULL, `guadeloupe` TEXT NOT NULL, `guam` TEXT NOT NULL, `guatemala` TEXT NOT NULL, `guernsey` TEXT NOT NULL, `guinea` TEXT NOT NULL, `guineaBissau` TEXT NOT NULL, `guyana` TEXT NOT NULL, `haiti` TEXT NOT NULL, `heardIslandAndMcDonaldIslands` TEXT NOT NULL, `honduras` TEXT NOT NULL, `hongKong` TEXT NOT NULL, `hungary` TEXT NOT NULL, `iceland` TEXT NOT NULL, `india` TEXT NOT NULL, `indonesia` TEXT NOT NULL, `iran` TEXT NOT NULL, `iraq` TEXT NOT NULL, `ireland` TEXT NOT NULL, `isleOfMan` TEXT NOT NULL, `israel` TEXT NOT NULL, `italy` TEXT NOT NULL, `ivoryCoast` TEXT NOT NULL, `jamaica` TEXT NOT NULL, `japan` TEXT NOT NULL, `jersey` TEXT NOT NULL, `jordan` TEXT NOT NULL, `kazakhstan` TEXT NOT NULL, `kenya` TEXT NOT NULL, `kiribati` TEXT NOT NULL, `kosovo` TEXT NOT NULL, `kuwait` TEXT NOT NULL, `kyrgyzstan` TEXT NOT NULL, `laos` TEXT NOT NULL, `latvia` TEXT NOT NULL, `lebanon` TEXT NOT NULL, `lesotho` TEXT NOT NULL, `liberia` TEXT NOT NULL, `libya` TEXT NOT NULL, `liechtenstein` TEXT NOT NULL, `lithuania` TEXT NOT NULL, `luxembourg` TEXT NOT NULL, `macao` TEXT NOT NULL, `macedonia` TEXT NOT NULL, `madagascar` TEXT NOT NULL, `mainlandChina` TEXT NOT NULL, `malawi` TEXT NOT NULL, `malaysia` TEXT NOT NULL, `maldives` TEXT NOT NULL, `mali` TEXT NOT NULL, `malta` TEXT NOT NULL, `marshallIslands` TEXT NOT NULL, `martinique` TEXT NOT NULL, `mauritania` TEXT NOT NULL, `mauritius` TEXT NOT NULL, `mayotte` TEXT NOT NULL, `mexico` TEXT NOT NULL, `micronesia` TEXT NOT NULL, `moldova` TEXT NOT NULL, `monaco` TEXT NOT NULL, `mongolia` TEXT NOT NULL, `montenegro` TEXT NOT NULL, `montserrat` TEXT NOT NULL, `morocco` TEXT NOT NULL, `mozambique` TEXT NOT NULL, `myanmar` TEXT NOT NULL, `namibia` TEXT NOT NULL, `nauru` TEXT NOT NULL, `nepal` TEXT NOT NULL, `netherlands` TEXT NOT NULL, `newCaledonia` TEXT NOT NULL, `newZealand` TEXT NOT NULL, `nicaragua` TEXT NOT NULL, `niger` TEXT NOT NULL, `nigeria` TEXT NOT NULL, `niue` TEXT NOT NULL, `norfolkIsland` TEXT NOT NULL, `northKorea` TEXT NOT NULL, `northernMarianaIslands` TEXT NOT NULL, `norway` TEXT NOT NULL, `oman` TEXT NOT NULL, `pakistan` TEXT NOT NULL, `palau` TEXT NOT NULL, `palestinianTerritory` TEXT NOT NULL, `panama` TEXT NOT NULL, `papuaNewGuinea` TEXT NOT NULL, `paraguay` TEXT NOT NULL, `peru` TEXT NOT NULL, `philippines` TEXT NOT NULL, `pitcairn` TEXT NOT NULL, `poland` TEXT NOT NULL, `portugal` TEXT NOT NULL, `puertoRico` TEXT NOT NULL, `qatar` TEXT NOT NULL, `republicOfTheCongo` TEXT NOT NULL, `reunion` TEXT NOT NULL, `romania` TEXT NOT NULL, `russia` TEXT NOT NULL, `rwanda` TEXT NOT NULL, `saintBarthelemy` TEXT NOT NULL, `saintHelena` TEXT NOT NULL, `saintKittsAndNevis` TEXT NOT NULL, `saintLucia` TEXT NOT NULL, `saintMartin` TEXT NOT NULL, `saintPierreAndMiquelon` TEXT NOT NULL, `saintVincentAndTheGrenadines` TEXT NOT NULL, `samoa` TEXT NOT NULL, `sanMarino` TEXT NOT NULL, `saoTomeAndPrincipe` TEXT NOT NULL, `saudiArabia` TEXT NOT NULL, `senegal` TEXT NOT NULL, `serbia` TEXT NOT NULL, `seychelles` TEXT NOT NULL, `sierraLeone` TEXT NOT NULL, `singapore` TEXT NOT NULL, `sintMaarten` TEXT NOT NULL, `slovakia` TEXT NOT NULL, `slovenia` TEXT NOT NULL, `solomonIslands` TEXT NOT NULL, `somalia` TEXT NOT NULL, `southAfrica` TEXT NOT NULL, `southGeorgiaAndTheSouthSandwichIslands` TEXT NOT NULL, `southKorea` TEXT NOT NULL, `southSudan` TEXT NOT NULL, `spain` TEXT NOT NULL, `sriLanka` TEXT NOT NULL, `sudan` TEXT NOT NULL, `suriname` TEXT NOT NULL, `svalbardAndJanMayen` TEXT NOT NULL, `swaziland` TEXT NOT NULL, `sweden` TEXT NOT NULL, `switzerland` TEXT NOT NULL, `syria` TEXT NOT NULL, `taiwan` TEXT NOT NULL, `tajikistan` TEXT NOT NULL, `tanzania` TEXT NOT NULL, `thailand` TEXT NOT NULL, `togo` TEXT NOT NULL, `tokelau` TEXT NOT NULL, `tonga` TEXT NOT NULL, `trinidadAndTobago` TEXT NOT NULL, `tunisia` TEXT NOT NULL, `turkey` TEXT NOT NULL, `turkmenistan` TEXT NOT NULL, `turksAndCaicosIslands` TEXT NOT NULL, `tuvalu` TEXT NOT NULL, `uS` TEXT NOT NULL, `uSVirginIslands` TEXT NOT NULL, `uganda` TEXT NOT NULL, `ukraine` TEXT NOT NULL, `unitedArabEmirates` TEXT NOT NULL, `unitedKingdom` TEXT NOT NULL, `unitedStatesMinorOutlyingIslands` TEXT NOT NULL, `uruguay` TEXT NOT NULL, `uzbekistan` TEXT NOT NULL, `vanuatu` TEXT NOT NULL, `vatican` TEXT NOT NULL, `venezuela` TEXT NOT NULL, `vietnam` TEXT NOT NULL, `wallisAndFutuna` TEXT NOT NULL, `westernSahara` TEXT NOT NULL, `yemen` TEXT NOT NULL, `zambia` TEXT NOT NULL, `zimbabwe` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "afghanistan",
+            "columnName": "afghanistan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "alandIslands",
+            "columnName": "alandIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "albania",
+            "columnName": "albania",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "algeria",
+            "columnName": "algeria",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "americanSamoa",
+            "columnName": "americanSamoa",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "andorra",
+            "columnName": "andorra",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "angola",
+            "columnName": "angola",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "anguilla",
+            "columnName": "anguilla",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "antarctica",
+            "columnName": "antarctica",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "antiguaAndBarbuda",
+            "columnName": "antiguaAndBarbuda",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "argentina",
+            "columnName": "argentina",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "armenia",
+            "columnName": "armenia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "aruba",
+            "columnName": "aruba",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "australia",
+            "columnName": "australia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "austria",
+            "columnName": "austria",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "azerbaijan",
+            "columnName": "azerbaijan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bahamas",
+            "columnName": "bahamas",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bahrain",
+            "columnName": "bahrain",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bangladesh",
+            "columnName": "bangladesh",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "barbados",
+            "columnName": "barbados",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "belarus",
+            "columnName": "belarus",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "belgium",
+            "columnName": "belgium",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "belize",
+            "columnName": "belize",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "benin",
+            "columnName": "benin",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bermuda",
+            "columnName": "bermuda",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bhutan",
+            "columnName": "bhutan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bolivia",
+            "columnName": "bolivia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bonaireSaintEustatiusAndSaba",
+            "columnName": "bonaireSaintEustatiusAndSaba",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bosniaAndHerzegovina",
+            "columnName": "bosniaAndHerzegovina",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "botswana",
+            "columnName": "botswana",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bouvetIsland",
+            "columnName": "bouvetIsland",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "brazil",
+            "columnName": "brazil",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "britishIndianOceanTerritory",
+            "columnName": "britishIndianOceanTerritory",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "britishVirginIslands",
+            "columnName": "britishVirginIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "brunei",
+            "columnName": "brunei",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bulgaria",
+            "columnName": "bulgaria",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "burkinaFaso",
+            "columnName": "burkinaFaso",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "burundi",
+            "columnName": "burundi",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cambodia",
+            "columnName": "cambodia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cameroon",
+            "columnName": "cameroon",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "canada",
+            "columnName": "canada",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "capeVerde",
+            "columnName": "capeVerde",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "caymanIslands",
+            "columnName": "caymanIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "centralAfricanRepublic",
+            "columnName": "centralAfricanRepublic",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "chad",
+            "columnName": "chad",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "chile",
+            "columnName": "chile",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "christmasIsland",
+            "columnName": "christmasIsland",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cocosIslands",
+            "columnName": "cocosIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "colombia",
+            "columnName": "colombia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "comoros",
+            "columnName": "comoros",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cookIslands",
+            "columnName": "cookIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "costaRica",
+            "columnName": "costaRica",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "croatia",
+            "columnName": "croatia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cuba",
+            "columnName": "cuba",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "curacao",
+            "columnName": "curacao",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cyprus",
+            "columnName": "cyprus",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "czechRepublic",
+            "columnName": "czechRepublic",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "democraticRepublicOfTheCongo",
+            "columnName": "democraticRepublicOfTheCongo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "denmark",
+            "columnName": "denmark",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "djibouti",
+            "columnName": "djibouti",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dominica",
+            "columnName": "dominica",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dominicanRepublic",
+            "columnName": "dominicanRepublic",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "eastTimor",
+            "columnName": "eastTimor",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ecuador",
+            "columnName": "ecuador",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "egypt",
+            "columnName": "egypt",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "elSalvador",
+            "columnName": "elSalvador",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "equatorialGuinea",
+            "columnName": "equatorialGuinea",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "eritrea",
+            "columnName": "eritrea",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "estonia",
+            "columnName": "estonia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ethiopia",
+            "columnName": "ethiopia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "falklandIslands",
+            "columnName": "falklandIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "faroeIslands",
+            "columnName": "faroeIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fiji",
+            "columnName": "fiji",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "finland",
+            "columnName": "finland",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "france",
+            "columnName": "france",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "frenchGuiana",
+            "columnName": "frenchGuiana",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "frenchPolynesia",
+            "columnName": "frenchPolynesia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "frenchSouthernTerritories",
+            "columnName": "frenchSouthernTerritories",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gabon",
+            "columnName": "gabon",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gambia",
+            "columnName": "gambia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "georgia",
+            "columnName": "georgia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "germany",
+            "columnName": "germany",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ghana",
+            "columnName": "ghana",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gibraltar",
+            "columnName": "gibraltar",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "greece",
+            "columnName": "greece",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "greenland",
+            "columnName": "greenland",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "grenada",
+            "columnName": "grenada",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "guadeloupe",
+            "columnName": "guadeloupe",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "guam",
+            "columnName": "guam",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "guatemala",
+            "columnName": "guatemala",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "guernsey",
+            "columnName": "guernsey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "guinea",
+            "columnName": "guinea",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "guineaBissau",
+            "columnName": "guineaBissau",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "guyana",
+            "columnName": "guyana",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "haiti",
+            "columnName": "haiti",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "heardIslandAndMcDonaldIslands",
+            "columnName": "heardIslandAndMcDonaldIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "honduras",
+            "columnName": "honduras",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hongKong",
+            "columnName": "hongKong",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hungary",
+            "columnName": "hungary",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "iceland",
+            "columnName": "iceland",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "india",
+            "columnName": "india",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "indonesia",
+            "columnName": "indonesia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "iran",
+            "columnName": "iran",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "iraq",
+            "columnName": "iraq",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ireland",
+            "columnName": "ireland",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isleOfMan",
+            "columnName": "isleOfMan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "israel",
+            "columnName": "israel",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "italy",
+            "columnName": "italy",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ivoryCoast",
+            "columnName": "ivoryCoast",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "jamaica",
+            "columnName": "jamaica",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "japan",
+            "columnName": "japan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "jersey",
+            "columnName": "jersey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "jordan",
+            "columnName": "jordan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kazakhstan",
+            "columnName": "kazakhstan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kenya",
+            "columnName": "kenya",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kiribati",
+            "columnName": "kiribati",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kosovo",
+            "columnName": "kosovo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kuwait",
+            "columnName": "kuwait",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kyrgyzstan",
+            "columnName": "kyrgyzstan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "laos",
+            "columnName": "laos",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "latvia",
+            "columnName": "latvia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lebanon",
+            "columnName": "lebanon",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lesotho",
+            "columnName": "lesotho",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "liberia",
+            "columnName": "liberia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "libya",
+            "columnName": "libya",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "liechtenstein",
+            "columnName": "liechtenstein",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lithuania",
+            "columnName": "lithuania",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "luxembourg",
+            "columnName": "luxembourg",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "macao",
+            "columnName": "macao",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "macedonia",
+            "columnName": "macedonia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "madagascar",
+            "columnName": "madagascar",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mainlandChina",
+            "columnName": "mainlandChina",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "malawi",
+            "columnName": "malawi",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "malaysia",
+            "columnName": "malaysia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "maldives",
+            "columnName": "maldives",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mali",
+            "columnName": "mali",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "malta",
+            "columnName": "malta",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "marshallIslands",
+            "columnName": "marshallIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "martinique",
+            "columnName": "martinique",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mauritania",
+            "columnName": "mauritania",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mauritius",
+            "columnName": "mauritius",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mayotte",
+            "columnName": "mayotte",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mexico",
+            "columnName": "mexico",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "micronesia",
+            "columnName": "micronesia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "moldova",
+            "columnName": "moldova",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "monaco",
+            "columnName": "monaco",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mongolia",
+            "columnName": "mongolia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "montenegro",
+            "columnName": "montenegro",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "montserrat",
+            "columnName": "montserrat",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "morocco",
+            "columnName": "morocco",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mozambique",
+            "columnName": "mozambique",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "myanmar",
+            "columnName": "myanmar",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "namibia",
+            "columnName": "namibia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nauru",
+            "columnName": "nauru",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nepal",
+            "columnName": "nepal",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "netherlands",
+            "columnName": "netherlands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "newCaledonia",
+            "columnName": "newCaledonia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "newZealand",
+            "columnName": "newZealand",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nicaragua",
+            "columnName": "nicaragua",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "niger",
+            "columnName": "niger",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nigeria",
+            "columnName": "nigeria",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "niue",
+            "columnName": "niue",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "norfolkIsland",
+            "columnName": "norfolkIsland",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "northKorea",
+            "columnName": "northKorea",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "northernMarianaIslands",
+            "columnName": "northernMarianaIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "norway",
+            "columnName": "norway",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "oman",
+            "columnName": "oman",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pakistan",
+            "columnName": "pakistan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "palau",
+            "columnName": "palau",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "palestinianTerritory",
+            "columnName": "palestinianTerritory",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "panama",
+            "columnName": "panama",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "papuaNewGuinea",
+            "columnName": "papuaNewGuinea",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "paraguay",
+            "columnName": "paraguay",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "peru",
+            "columnName": "peru",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "philippines",
+            "columnName": "philippines",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pitcairn",
+            "columnName": "pitcairn",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "poland",
+            "columnName": "poland",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "portugal",
+            "columnName": "portugal",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "puertoRico",
+            "columnName": "puertoRico",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "qatar",
+            "columnName": "qatar",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "republicOfTheCongo",
+            "columnName": "republicOfTheCongo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reunion",
+            "columnName": "reunion",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "romania",
+            "columnName": "romania",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "russia",
+            "columnName": "russia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rwanda",
+            "columnName": "rwanda",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "saintBarthelemy",
+            "columnName": "saintBarthelemy",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "saintHelena",
+            "columnName": "saintHelena",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "saintKittsAndNevis",
+            "columnName": "saintKittsAndNevis",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "saintLucia",
+            "columnName": "saintLucia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "saintMartin",
+            "columnName": "saintMartin",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "saintPierreAndMiquelon",
+            "columnName": "saintPierreAndMiquelon",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "saintVincentAndTheGrenadines",
+            "columnName": "saintVincentAndTheGrenadines",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "samoa",
+            "columnName": "samoa",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sanMarino",
+            "columnName": "sanMarino",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "saoTomeAndPrincipe",
+            "columnName": "saoTomeAndPrincipe",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "saudiArabia",
+            "columnName": "saudiArabia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "senegal",
+            "columnName": "senegal",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "serbia",
+            "columnName": "serbia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "seychelles",
+            "columnName": "seychelles",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sierraLeone",
+            "columnName": "sierraLeone",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "singapore",
+            "columnName": "singapore",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sintMaarten",
+            "columnName": "sintMaarten",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "slovakia",
+            "columnName": "slovakia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "slovenia",
+            "columnName": "slovenia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "solomonIslands",
+            "columnName": "solomonIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "somalia",
+            "columnName": "somalia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "southAfrica",
+            "columnName": "southAfrica",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "southGeorgiaAndTheSouthSandwichIslands",
+            "columnName": "southGeorgiaAndTheSouthSandwichIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "southKorea",
+            "columnName": "southKorea",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "southSudan",
+            "columnName": "southSudan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "spain",
+            "columnName": "spain",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sriLanka",
+            "columnName": "sriLanka",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sudan",
+            "columnName": "sudan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "suriname",
+            "columnName": "suriname",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "svalbardAndJanMayen",
+            "columnName": "svalbardAndJanMayen",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "swaziland",
+            "columnName": "swaziland",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sweden",
+            "columnName": "sweden",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "switzerland",
+            "columnName": "switzerland",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "syria",
+            "columnName": "syria",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "taiwan",
+            "columnName": "taiwan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tajikistan",
+            "columnName": "tajikistan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tanzania",
+            "columnName": "tanzania",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thailand",
+            "columnName": "thailand",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "togo",
+            "columnName": "togo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tokelau",
+            "columnName": "tokelau",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tonga",
+            "columnName": "tonga",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "trinidadAndTobago",
+            "columnName": "trinidadAndTobago",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tunisia",
+            "columnName": "tunisia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "turkey",
+            "columnName": "turkey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "turkmenistan",
+            "columnName": "turkmenistan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "turksAndCaicosIslands",
+            "columnName": "turksAndCaicosIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tuvalu",
+            "columnName": "tuvalu",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uS",
+            "columnName": "uS",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uSVirginIslands",
+            "columnName": "uSVirginIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uganda",
+            "columnName": "uganda",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ukraine",
+            "columnName": "ukraine",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "unitedArabEmirates",
+            "columnName": "unitedArabEmirates",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "unitedKingdom",
+            "columnName": "unitedKingdom",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "unitedStatesMinorOutlyingIslands",
+            "columnName": "unitedStatesMinorOutlyingIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uruguay",
+            "columnName": "uruguay",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uzbekistan",
+            "columnName": "uzbekistan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vanuatu",
+            "columnName": "vanuatu",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vatican",
+            "columnName": "vatican",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "venezuela",
+            "columnName": "venezuela",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vietnam",
+            "columnName": "vietnam",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wallisAndFutuna",
+            "columnName": "wallisAndFutuna",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "westernSahara",
+            "columnName": "westernSahara",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "yemen",
+            "columnName": "yemen",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "zambia",
+            "columnName": "zambia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "zimbabwe",
+            "columnName": "zimbabwe",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "CountriesResponse",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cntryid` INTEGER NOT NULL, `cntryafghanistan` TEXT NOT NULL, `cntryalandIslands` TEXT NOT NULL, `cntryalbania` TEXT NOT NULL, `cntryalgeria` TEXT NOT NULL, `cntryamericanSamoa` TEXT NOT NULL, `cntryandorra` TEXT NOT NULL, `cntryangola` TEXT NOT NULL, `cntryanguilla` TEXT NOT NULL, `cntryantarctica` TEXT NOT NULL, `cntryantiguaAndBarbuda` TEXT NOT NULL, `cntryargentina` TEXT NOT NULL, `cntryarmenia` TEXT NOT NULL, `cntryaruba` TEXT NOT NULL, `cntryaustralia` TEXT NOT NULL, `cntryaustria` TEXT NOT NULL, `cntryazerbaijan` TEXT NOT NULL, `cntrybahamas` TEXT NOT NULL, `cntrybahrain` TEXT NOT NULL, `cntrybangladesh` TEXT NOT NULL, `cntrybarbados` TEXT NOT NULL, `cntrybelarus` TEXT NOT NULL, `cntrybelgium` TEXT NOT NULL, `cntrybelize` TEXT NOT NULL, `cntrybenin` TEXT NOT NULL, `cntrybermuda` TEXT NOT NULL, `cntrybhutan` TEXT NOT NULL, `cntrybolivia` TEXT NOT NULL, `cntrybonaireSaintEustatiusAndSaba` TEXT NOT NULL, `cntrybosniaAndHerzegovina` TEXT NOT NULL, `cntrybotswana` TEXT NOT NULL, `cntrybouvetIsland` TEXT NOT NULL, `cntrybrazil` TEXT NOT NULL, `cntrybritishIndianOceanTerritory` TEXT NOT NULL, `cntrybritishVirginIslands` TEXT NOT NULL, `cntrybrunei` TEXT NOT NULL, `cntrybulgaria` TEXT NOT NULL, `cntryburkinaFaso` TEXT NOT NULL, `cntryburundi` TEXT NOT NULL, `cntrycambodia` TEXT NOT NULL, `cntrycameroon` TEXT NOT NULL, `cntrycanada` TEXT NOT NULL, `cntrycapeVerde` TEXT NOT NULL, `cntrycaymanIslands` TEXT NOT NULL, `cntrycentralAfricanRepublic` TEXT NOT NULL, `cntrychad` TEXT NOT NULL, `cntrychile` TEXT NOT NULL, `cntrychristmasIsland` TEXT NOT NULL, `cntrycocosIslands` TEXT NOT NULL, `cntrycolombia` TEXT NOT NULL, `cntrycomoros` TEXT NOT NULL, `cntrycookIslands` TEXT NOT NULL, `cntrycostaRica` TEXT NOT NULL, `cntrycroatia` TEXT NOT NULL, `cntrycuba` TEXT NOT NULL, `cntrycuracao` TEXT NOT NULL, `cntrycyprus` TEXT NOT NULL, `cntryczechRepublic` TEXT NOT NULL, `cntrydemocraticRepublicOfTheCongo` TEXT NOT NULL, `cntrydenmark` TEXT NOT NULL, `cntrydjibouti` TEXT NOT NULL, `cntrydominica` TEXT NOT NULL, `cntrydominicanRepublic` TEXT NOT NULL, `cntryeastTimor` TEXT NOT NULL, `cntryecuador` TEXT NOT NULL, `cntryegypt` TEXT NOT NULL, `cntryelSalvador` TEXT NOT NULL, `cntryequatorialGuinea` TEXT NOT NULL, `cntryeritrea` TEXT NOT NULL, `cntryestonia` TEXT NOT NULL, `cntryethiopia` TEXT NOT NULL, `cntryfalklandIslands` TEXT NOT NULL, `cntryfaroeIslands` TEXT NOT NULL, `cntryfiji` TEXT NOT NULL, `cntryfinland` TEXT NOT NULL, `cntryfrance` TEXT NOT NULL, `cntryfrenchGuiana` TEXT NOT NULL, `cntryfrenchPolynesia` TEXT NOT NULL, `cntryfrenchSouthernTerritories` TEXT NOT NULL, `cntrygabon` TEXT NOT NULL, `cntrygambia` TEXT NOT NULL, `cntrygeorgia` TEXT NOT NULL, `cntrygermany` TEXT NOT NULL, `cntryghana` TEXT NOT NULL, `cntrygibraltar` TEXT NOT NULL, `cntrygreece` TEXT NOT NULL, `cntrygreenland` TEXT NOT NULL, `cntrygrenada` TEXT NOT NULL, `cntryguadeloupe` TEXT NOT NULL, `cntryguam` TEXT NOT NULL, `cntryguatemala` TEXT NOT NULL, `cntryguernsey` TEXT NOT NULL, `cntryguinea` TEXT NOT NULL, `cntryguineaBissau` TEXT NOT NULL, `cntryguyana` TEXT NOT NULL, `cntryhaiti` TEXT NOT NULL, `cntryheardIslandAndMcDonaldIslands` TEXT NOT NULL, `cntryhonduras` TEXT NOT NULL, `cntryhongKong` TEXT NOT NULL, `cntryhungary` TEXT NOT NULL, `cntryiceland` TEXT NOT NULL, `cntryindia` TEXT NOT NULL, `cntryindonesia` TEXT NOT NULL, `cntryiran` TEXT NOT NULL, `cntryiraq` TEXT NOT NULL, `cntryireland` TEXT NOT NULL, `cntryisleOfMan` TEXT NOT NULL, `cntryisrael` TEXT NOT NULL, `cntryitaly` TEXT NOT NULL, `cntryivoryCoast` TEXT NOT NULL, `cntryjamaica` TEXT NOT NULL, `cntryjapan` TEXT NOT NULL, `cntryjersey` TEXT NOT NULL, `cntryjordan` TEXT NOT NULL, `cntrykazakhstan` TEXT NOT NULL, `cntrykenya` TEXT NOT NULL, `cntrykiribati` TEXT NOT NULL, `cntrykosovo` TEXT NOT NULL, `cntrykuwait` TEXT NOT NULL, `cntrykyrgyzstan` TEXT NOT NULL, `cntrylaos` TEXT NOT NULL, `cntrylatvia` TEXT NOT NULL, `cntrylebanon` TEXT NOT NULL, `cntrylesotho` TEXT NOT NULL, `cntryliberia` TEXT NOT NULL, `cntrylibya` TEXT NOT NULL, `cntryliechtenstein` TEXT NOT NULL, `cntrylithuania` TEXT NOT NULL, `cntryluxembourg` TEXT NOT NULL, `cntrymacao` TEXT NOT NULL, `cntrymacedonia` TEXT NOT NULL, `cntrymadagascar` TEXT NOT NULL, `cntrymainlandChina` TEXT NOT NULL, `cntrymalawi` TEXT NOT NULL, `cntrymalaysia` TEXT NOT NULL, `cntrymaldives` TEXT NOT NULL, `cntrymali` TEXT NOT NULL, `cntrymalta` TEXT NOT NULL, `cntrymarshallIslands` TEXT NOT NULL, `cntrymartinique` TEXT NOT NULL, `cntrymauritania` TEXT NOT NULL, `cntrymauritius` TEXT NOT NULL, `cntrymayotte` TEXT NOT NULL, `cntrymexico` TEXT NOT NULL, `cntrymicronesia` TEXT NOT NULL, `cntrymoldova` TEXT NOT NULL, `cntrymonaco` TEXT NOT NULL, `cntrymongolia` TEXT NOT NULL, `cntrymontenegro` TEXT NOT NULL, `cntrymontserrat` TEXT NOT NULL, `cntrymorocco` TEXT NOT NULL, `cntrymozambique` TEXT NOT NULL, `cntrymyanmar` TEXT NOT NULL, `cntrynamibia` TEXT NOT NULL, `cntrynauru` TEXT NOT NULL, `cntrynepal` TEXT NOT NULL, `cntrynetherlands` TEXT NOT NULL, `cntrynewCaledonia` TEXT NOT NULL, `cntrynewZealand` TEXT NOT NULL, `cntrynicaragua` TEXT NOT NULL, `cntryniger` TEXT NOT NULL, `cntrynigeria` TEXT NOT NULL, `cntryniue` TEXT NOT NULL, `cntrynorfolkIsland` TEXT NOT NULL, `cntrynorthKorea` TEXT NOT NULL, `cntrynorthernMarianaIslands` TEXT NOT NULL, `cntrynorway` TEXT NOT NULL, `cntryoman` TEXT NOT NULL, `cntrypakistan` TEXT NOT NULL, `cntrypalau` TEXT NOT NULL, `cntrypalestinianTerritory` TEXT NOT NULL, `cntrypanama` TEXT NOT NULL, `cntrypapuaNewGuinea` TEXT NOT NULL, `cntryparaguay` TEXT NOT NULL, `cntryperu` TEXT NOT NULL, `cntryphilippines` TEXT NOT NULL, `cntrypitcairn` TEXT NOT NULL, `cntrypoland` TEXT NOT NULL, `cntryportugal` TEXT NOT NULL, `cntrypuertoRico` TEXT NOT NULL, `cntryqatar` TEXT NOT NULL, `cntryrepublicOfTheCongo` TEXT NOT NULL, `cntryreunion` TEXT NOT NULL, `cntryromania` TEXT NOT NULL, `cntryrussia` TEXT NOT NULL, `cntryrwanda` TEXT NOT NULL, `cntrysaintBarthelemy` TEXT NOT NULL, `cntrysaintHelena` TEXT NOT NULL, `cntrysaintKittsAndNevis` TEXT NOT NULL, `cntrysaintLucia` TEXT NOT NULL, `cntrysaintMartin` TEXT NOT NULL, `cntrysaintPierreAndMiquelon` TEXT NOT NULL, `cntrysaintVincentAndTheGrenadines` TEXT NOT NULL, `cntrysamoa` TEXT NOT NULL, `cntrysanMarino` TEXT NOT NULL, `cntrysaoTomeAndPrincipe` TEXT NOT NULL, `cntrysaudiArabia` TEXT NOT NULL, `cntrysenegal` TEXT NOT NULL, `cntryserbia` TEXT NOT NULL, `cntryseychelles` TEXT NOT NULL, `cntrysierraLeone` TEXT NOT NULL, `cntrysingapore` TEXT NOT NULL, `cntrysintMaarten` TEXT NOT NULL, `cntryslovakia` TEXT NOT NULL, `cntryslovenia` TEXT NOT NULL, `cntrysolomonIslands` TEXT NOT NULL, `cntrysomalia` TEXT NOT NULL, `cntrysouthAfrica` TEXT NOT NULL, `cntrysouthGeorgiaAndTheSouthSandwichIslands` TEXT NOT NULL, `cntrysouthKorea` TEXT NOT NULL, `cntrysouthSudan` TEXT NOT NULL, `cntryspain` TEXT NOT NULL, `cntrysriLanka` TEXT NOT NULL, `cntrysudan` TEXT NOT NULL, `cntrysuriname` TEXT NOT NULL, `cntrysvalbardAndJanMayen` TEXT NOT NULL, `cntryswaziland` TEXT NOT NULL, `cntrysweden` TEXT NOT NULL, `cntryswitzerland` TEXT NOT NULL, `cntrysyria` TEXT NOT NULL, `cntrytaiwan` TEXT NOT NULL, `cntrytajikistan` TEXT NOT NULL, `cntrytanzania` TEXT NOT NULL, `cntrythailand` TEXT NOT NULL, `cntrytogo` TEXT NOT NULL, `cntrytokelau` TEXT NOT NULL, `cntrytonga` TEXT NOT NULL, `cntrytrinidadAndTobago` TEXT NOT NULL, `cntrytunisia` TEXT NOT NULL, `cntryturkey` TEXT NOT NULL, `cntryturkmenistan` TEXT NOT NULL, `cntryturksAndCaicosIslands` TEXT NOT NULL, `cntrytuvalu` TEXT NOT NULL, `cntryuS` TEXT NOT NULL, `cntryuSVirginIslands` TEXT NOT NULL, `cntryuganda` TEXT NOT NULL, `cntryukraine` TEXT NOT NULL, `cntryunitedArabEmirates` TEXT NOT NULL, `cntryunitedKingdom` TEXT NOT NULL, `cntryunitedStatesMinorOutlyingIslands` TEXT NOT NULL, `cntryuruguay` TEXT NOT NULL, `cntryuzbekistan` TEXT NOT NULL, `cntryvanuatu` TEXT NOT NULL, `cntryvatican` TEXT NOT NULL, `cntryvenezuela` TEXT NOT NULL, `cntryvietnam` TEXT NOT NULL, `cntrywallisAndFutuna` TEXT NOT NULL, `cntrywesternSahara` TEXT NOT NULL, `cntryyemen` TEXT NOT NULL, `cntryzambia` TEXT NOT NULL, `cntryzimbabwe` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.id",
+            "columnName": "cntryid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.afghanistan",
+            "columnName": "cntryafghanistan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.alandIslands",
+            "columnName": "cntryalandIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.albania",
+            "columnName": "cntryalbania",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.algeria",
+            "columnName": "cntryalgeria",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.americanSamoa",
+            "columnName": "cntryamericanSamoa",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.andorra",
+            "columnName": "cntryandorra",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.angola",
+            "columnName": "cntryangola",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.anguilla",
+            "columnName": "cntryanguilla",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.antarctica",
+            "columnName": "cntryantarctica",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.antiguaAndBarbuda",
+            "columnName": "cntryantiguaAndBarbuda",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.argentina",
+            "columnName": "cntryargentina",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.armenia",
+            "columnName": "cntryarmenia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.aruba",
+            "columnName": "cntryaruba",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.australia",
+            "columnName": "cntryaustralia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.austria",
+            "columnName": "cntryaustria",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.azerbaijan",
+            "columnName": "cntryazerbaijan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.bahamas",
+            "columnName": "cntrybahamas",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.bahrain",
+            "columnName": "cntrybahrain",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.bangladesh",
+            "columnName": "cntrybangladesh",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.barbados",
+            "columnName": "cntrybarbados",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.belarus",
+            "columnName": "cntrybelarus",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.belgium",
+            "columnName": "cntrybelgium",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.belize",
+            "columnName": "cntrybelize",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.benin",
+            "columnName": "cntrybenin",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.bermuda",
+            "columnName": "cntrybermuda",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.bhutan",
+            "columnName": "cntrybhutan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.bolivia",
+            "columnName": "cntrybolivia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.bonaireSaintEustatiusAndSaba",
+            "columnName": "cntrybonaireSaintEustatiusAndSaba",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.bosniaAndHerzegovina",
+            "columnName": "cntrybosniaAndHerzegovina",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.botswana",
+            "columnName": "cntrybotswana",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.bouvetIsland",
+            "columnName": "cntrybouvetIsland",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.brazil",
+            "columnName": "cntrybrazil",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.britishIndianOceanTerritory",
+            "columnName": "cntrybritishIndianOceanTerritory",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.britishVirginIslands",
+            "columnName": "cntrybritishVirginIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.brunei",
+            "columnName": "cntrybrunei",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.bulgaria",
+            "columnName": "cntrybulgaria",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.burkinaFaso",
+            "columnName": "cntryburkinaFaso",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.burundi",
+            "columnName": "cntryburundi",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.cambodia",
+            "columnName": "cntrycambodia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.cameroon",
+            "columnName": "cntrycameroon",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.canada",
+            "columnName": "cntrycanada",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.capeVerde",
+            "columnName": "cntrycapeVerde",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.caymanIslands",
+            "columnName": "cntrycaymanIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.centralAfricanRepublic",
+            "columnName": "cntrycentralAfricanRepublic",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.chad",
+            "columnName": "cntrychad",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.chile",
+            "columnName": "cntrychile",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.christmasIsland",
+            "columnName": "cntrychristmasIsland",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.cocosIslands",
+            "columnName": "cntrycocosIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.colombia",
+            "columnName": "cntrycolombia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.comoros",
+            "columnName": "cntrycomoros",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.cookIslands",
+            "columnName": "cntrycookIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.costaRica",
+            "columnName": "cntrycostaRica",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.croatia",
+            "columnName": "cntrycroatia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.cuba",
+            "columnName": "cntrycuba",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.curacao",
+            "columnName": "cntrycuracao",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.cyprus",
+            "columnName": "cntrycyprus",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.czechRepublic",
+            "columnName": "cntryczechRepublic",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.democraticRepublicOfTheCongo",
+            "columnName": "cntrydemocraticRepublicOfTheCongo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.denmark",
+            "columnName": "cntrydenmark",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.djibouti",
+            "columnName": "cntrydjibouti",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.dominica",
+            "columnName": "cntrydominica",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.dominicanRepublic",
+            "columnName": "cntrydominicanRepublic",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.eastTimor",
+            "columnName": "cntryeastTimor",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.ecuador",
+            "columnName": "cntryecuador",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.egypt",
+            "columnName": "cntryegypt",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.elSalvador",
+            "columnName": "cntryelSalvador",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.equatorialGuinea",
+            "columnName": "cntryequatorialGuinea",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.eritrea",
+            "columnName": "cntryeritrea",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.estonia",
+            "columnName": "cntryestonia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.ethiopia",
+            "columnName": "cntryethiopia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.falklandIslands",
+            "columnName": "cntryfalklandIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.faroeIslands",
+            "columnName": "cntryfaroeIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.fiji",
+            "columnName": "cntryfiji",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.finland",
+            "columnName": "cntryfinland",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.france",
+            "columnName": "cntryfrance",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.frenchGuiana",
+            "columnName": "cntryfrenchGuiana",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.frenchPolynesia",
+            "columnName": "cntryfrenchPolynesia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.frenchSouthernTerritories",
+            "columnName": "cntryfrenchSouthernTerritories",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.gabon",
+            "columnName": "cntrygabon",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.gambia",
+            "columnName": "cntrygambia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.georgia",
+            "columnName": "cntrygeorgia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.germany",
+            "columnName": "cntrygermany",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.ghana",
+            "columnName": "cntryghana",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.gibraltar",
+            "columnName": "cntrygibraltar",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.greece",
+            "columnName": "cntrygreece",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.greenland",
+            "columnName": "cntrygreenland",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.grenada",
+            "columnName": "cntrygrenada",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.guadeloupe",
+            "columnName": "cntryguadeloupe",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.guam",
+            "columnName": "cntryguam",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.guatemala",
+            "columnName": "cntryguatemala",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.guernsey",
+            "columnName": "cntryguernsey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.guinea",
+            "columnName": "cntryguinea",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.guineaBissau",
+            "columnName": "cntryguineaBissau",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.guyana",
+            "columnName": "cntryguyana",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.haiti",
+            "columnName": "cntryhaiti",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.heardIslandAndMcDonaldIslands",
+            "columnName": "cntryheardIslandAndMcDonaldIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.honduras",
+            "columnName": "cntryhonduras",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.hongKong",
+            "columnName": "cntryhongKong",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.hungary",
+            "columnName": "cntryhungary",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.iceland",
+            "columnName": "cntryiceland",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.india",
+            "columnName": "cntryindia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.indonesia",
+            "columnName": "cntryindonesia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.iran",
+            "columnName": "cntryiran",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.iraq",
+            "columnName": "cntryiraq",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.ireland",
+            "columnName": "cntryireland",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.isleOfMan",
+            "columnName": "cntryisleOfMan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.israel",
+            "columnName": "cntryisrael",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.italy",
+            "columnName": "cntryitaly",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.ivoryCoast",
+            "columnName": "cntryivoryCoast",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.jamaica",
+            "columnName": "cntryjamaica",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.japan",
+            "columnName": "cntryjapan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.jersey",
+            "columnName": "cntryjersey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.jordan",
+            "columnName": "cntryjordan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.kazakhstan",
+            "columnName": "cntrykazakhstan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.kenya",
+            "columnName": "cntrykenya",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.kiribati",
+            "columnName": "cntrykiribati",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.kosovo",
+            "columnName": "cntrykosovo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.kuwait",
+            "columnName": "cntrykuwait",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.kyrgyzstan",
+            "columnName": "cntrykyrgyzstan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.laos",
+            "columnName": "cntrylaos",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.latvia",
+            "columnName": "cntrylatvia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.lebanon",
+            "columnName": "cntrylebanon",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.lesotho",
+            "columnName": "cntrylesotho",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.liberia",
+            "columnName": "cntryliberia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.libya",
+            "columnName": "cntrylibya",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.liechtenstein",
+            "columnName": "cntryliechtenstein",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.lithuania",
+            "columnName": "cntrylithuania",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.luxembourg",
+            "columnName": "cntryluxembourg",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.macao",
+            "columnName": "cntrymacao",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.macedonia",
+            "columnName": "cntrymacedonia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.madagascar",
+            "columnName": "cntrymadagascar",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.mainlandChina",
+            "columnName": "cntrymainlandChina",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.malawi",
+            "columnName": "cntrymalawi",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.malaysia",
+            "columnName": "cntrymalaysia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.maldives",
+            "columnName": "cntrymaldives",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.mali",
+            "columnName": "cntrymali",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.malta",
+            "columnName": "cntrymalta",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.marshallIslands",
+            "columnName": "cntrymarshallIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.martinique",
+            "columnName": "cntrymartinique",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.mauritania",
+            "columnName": "cntrymauritania",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.mauritius",
+            "columnName": "cntrymauritius",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.mayotte",
+            "columnName": "cntrymayotte",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.mexico",
+            "columnName": "cntrymexico",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.micronesia",
+            "columnName": "cntrymicronesia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.moldova",
+            "columnName": "cntrymoldova",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.monaco",
+            "columnName": "cntrymonaco",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.mongolia",
+            "columnName": "cntrymongolia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.montenegro",
+            "columnName": "cntrymontenegro",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.montserrat",
+            "columnName": "cntrymontserrat",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.morocco",
+            "columnName": "cntrymorocco",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.mozambique",
+            "columnName": "cntrymozambique",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.myanmar",
+            "columnName": "cntrymyanmar",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.namibia",
+            "columnName": "cntrynamibia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.nauru",
+            "columnName": "cntrynauru",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.nepal",
+            "columnName": "cntrynepal",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.netherlands",
+            "columnName": "cntrynetherlands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.newCaledonia",
+            "columnName": "cntrynewCaledonia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.newZealand",
+            "columnName": "cntrynewZealand",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.nicaragua",
+            "columnName": "cntrynicaragua",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.niger",
+            "columnName": "cntryniger",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.nigeria",
+            "columnName": "cntrynigeria",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.niue",
+            "columnName": "cntryniue",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.norfolkIsland",
+            "columnName": "cntrynorfolkIsland",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.northKorea",
+            "columnName": "cntrynorthKorea",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.northernMarianaIslands",
+            "columnName": "cntrynorthernMarianaIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.norway",
+            "columnName": "cntrynorway",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.oman",
+            "columnName": "cntryoman",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.pakistan",
+            "columnName": "cntrypakistan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.palau",
+            "columnName": "cntrypalau",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.palestinianTerritory",
+            "columnName": "cntrypalestinianTerritory",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.panama",
+            "columnName": "cntrypanama",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.papuaNewGuinea",
+            "columnName": "cntrypapuaNewGuinea",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.paraguay",
+            "columnName": "cntryparaguay",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.peru",
+            "columnName": "cntryperu",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.philippines",
+            "columnName": "cntryphilippines",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.pitcairn",
+            "columnName": "cntrypitcairn",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.poland",
+            "columnName": "cntrypoland",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.portugal",
+            "columnName": "cntryportugal",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.puertoRico",
+            "columnName": "cntrypuertoRico",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.qatar",
+            "columnName": "cntryqatar",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.republicOfTheCongo",
+            "columnName": "cntryrepublicOfTheCongo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.reunion",
+            "columnName": "cntryreunion",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.romania",
+            "columnName": "cntryromania",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.russia",
+            "columnName": "cntryrussia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.rwanda",
+            "columnName": "cntryrwanda",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.saintBarthelemy",
+            "columnName": "cntrysaintBarthelemy",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.saintHelena",
+            "columnName": "cntrysaintHelena",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.saintKittsAndNevis",
+            "columnName": "cntrysaintKittsAndNevis",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.saintLucia",
+            "columnName": "cntrysaintLucia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.saintMartin",
+            "columnName": "cntrysaintMartin",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.saintPierreAndMiquelon",
+            "columnName": "cntrysaintPierreAndMiquelon",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.saintVincentAndTheGrenadines",
+            "columnName": "cntrysaintVincentAndTheGrenadines",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.samoa",
+            "columnName": "cntrysamoa",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.sanMarino",
+            "columnName": "cntrysanMarino",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.saoTomeAndPrincipe",
+            "columnName": "cntrysaoTomeAndPrincipe",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.saudiArabia",
+            "columnName": "cntrysaudiArabia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.senegal",
+            "columnName": "cntrysenegal",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.serbia",
+            "columnName": "cntryserbia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.seychelles",
+            "columnName": "cntryseychelles",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.sierraLeone",
+            "columnName": "cntrysierraLeone",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.singapore",
+            "columnName": "cntrysingapore",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.sintMaarten",
+            "columnName": "cntrysintMaarten",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.slovakia",
+            "columnName": "cntryslovakia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.slovenia",
+            "columnName": "cntryslovenia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.solomonIslands",
+            "columnName": "cntrysolomonIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.somalia",
+            "columnName": "cntrysomalia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.southAfrica",
+            "columnName": "cntrysouthAfrica",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.southGeorgiaAndTheSouthSandwichIslands",
+            "columnName": "cntrysouthGeorgiaAndTheSouthSandwichIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.southKorea",
+            "columnName": "cntrysouthKorea",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.southSudan",
+            "columnName": "cntrysouthSudan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.spain",
+            "columnName": "cntryspain",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.sriLanka",
+            "columnName": "cntrysriLanka",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.sudan",
+            "columnName": "cntrysudan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.suriname",
+            "columnName": "cntrysuriname",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.svalbardAndJanMayen",
+            "columnName": "cntrysvalbardAndJanMayen",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.swaziland",
+            "columnName": "cntryswaziland",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.sweden",
+            "columnName": "cntrysweden",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.switzerland",
+            "columnName": "cntryswitzerland",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.syria",
+            "columnName": "cntrysyria",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.taiwan",
+            "columnName": "cntrytaiwan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.tajikistan",
+            "columnName": "cntrytajikistan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.tanzania",
+            "columnName": "cntrytanzania",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.thailand",
+            "columnName": "cntrythailand",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.togo",
+            "columnName": "cntrytogo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.tokelau",
+            "columnName": "cntrytokelau",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.tonga",
+            "columnName": "cntrytonga",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.trinidadAndTobago",
+            "columnName": "cntrytrinidadAndTobago",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.tunisia",
+            "columnName": "cntrytunisia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.turkey",
+            "columnName": "cntryturkey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.turkmenistan",
+            "columnName": "cntryturkmenistan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.turksAndCaicosIslands",
+            "columnName": "cntryturksAndCaicosIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.tuvalu",
+            "columnName": "cntrytuvalu",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.uS",
+            "columnName": "cntryuS",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.uSVirginIslands",
+            "columnName": "cntryuSVirginIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.uganda",
+            "columnName": "cntryuganda",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.ukraine",
+            "columnName": "cntryukraine",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.unitedArabEmirates",
+            "columnName": "cntryunitedArabEmirates",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.unitedKingdom",
+            "columnName": "cntryunitedKingdom",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.unitedStatesMinorOutlyingIslands",
+            "columnName": "cntryunitedStatesMinorOutlyingIslands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.uruguay",
+            "columnName": "cntryuruguay",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.uzbekistan",
+            "columnName": "cntryuzbekistan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.vanuatu",
+            "columnName": "cntryvanuatu",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.vatican",
+            "columnName": "cntryvatican",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.venezuela",
+            "columnName": "cntryvenezuela",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.vietnam",
+            "columnName": "cntryvietnam",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.wallisAndFutuna",
+            "columnName": "cntrywallisAndFutuna",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.westernSahara",
+            "columnName": "cntrywesternSahara",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.yemen",
+            "columnName": "cntryyemen",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.zambia",
+            "columnName": "cntryzambia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countries.zimbabwe",
+            "columnName": "cntryzimbabwe",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Data",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `regional` TEXT NOT NULL, `summaryid` INTEGER NOT NULL, `summarytotal` INTEGER NOT NULL, `summaryconfirmedCasesIndian` INTEGER NOT NULL, `summaryconfirmedCasesForeign` INTEGER NOT NULL, `summarydischarged` INTEGER NOT NULL, `summarydeaths` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "regional",
+            "columnName": "regional",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "summary.id",
+            "columnName": "summaryid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "summary.total",
+            "columnName": "summarytotal",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "summary.confirmedCasesIndian",
+            "columnName": "summaryconfirmedCasesIndian",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "summary.confirmedCasesForeign",
+            "columnName": "summaryconfirmedCasesForeign",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "summary.discharged",
+            "columnName": "summarydischarged",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "summary.deaths",
+            "columnName": "summarydeaths",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Latest",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`lastRefreshed` TEXT NOT NULL, `dataid` INTEGER NOT NULL, `dataregional` TEXT NOT NULL, `datasummaryid` INTEGER NOT NULL, `datasummarytotal` INTEGER NOT NULL, `datasummaryconfirmedCasesIndian` INTEGER NOT NULL, `datasummaryconfirmedCasesForeign` INTEGER NOT NULL, `datasummarydischarged` INTEGER NOT NULL, `datasummarydeaths` INTEGER NOT NULL, PRIMARY KEY(`lastRefreshed`))",
+        "fields": [
+          {
+            "fieldPath": "lastRefreshed",
+            "columnName": "lastRefreshed",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "data.id",
+            "columnName": "dataid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "data.regional",
+            "columnName": "dataregional",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "data.summary.id",
+            "columnName": "datasummaryid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "data.summary.total",
+            "columnName": "datasummarytotal",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "data.summary.confirmedCasesIndian",
+            "columnName": "datasummaryconfirmedCasesIndian",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "data.summary.confirmedCasesForeign",
+            "columnName": "datasummaryconfirmedCasesForeign",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "data.summary.discharged",
+            "columnName": "datasummarydischarged",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "data.summary.deaths",
+            "columnName": "datasummarydeaths",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "lastRefreshed"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Regional",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `loc` TEXT NOT NULL, `confirmedCasesIndian` INTEGER NOT NULL, `confirmedCasesForeign` INTEGER NOT NULL, `discharged` INTEGER NOT NULL, `deaths` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "loc",
+            "columnName": "loc",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "confirmedCasesIndian",
+            "columnName": "confirmedCasesIndian",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "confirmedCasesForeign",
+            "columnName": "confirmedCasesForeign",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "discharged",
+            "columnName": "discharged",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deaths",
+            "columnName": "deaths",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Summary",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `total` INTEGER NOT NULL, `confirmedCasesIndian` INTEGER NOT NULL, `confirmedCasesForeign` INTEGER NOT NULL, `discharged` INTEGER NOT NULL, `deaths` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "total",
+            "columnName": "total",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "confirmedCasesIndian",
+            "columnName": "confirmedCasesIndian",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "confirmedCasesForeign",
+            "columnName": "confirmedCasesForeign",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "discharged",
+            "columnName": "discharged",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deaths",
+            "columnName": "deaths",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a713aa7e8c892ee0430da7fc0b7d87a8')"
+    ]
+  }
+}

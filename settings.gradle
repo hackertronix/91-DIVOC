@@ -1,0 +1,3 @@
+rootProject.name='91Divoc'
+include ':app'
+include ':data'
