@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getSelectedThemeFromPrefs() {
-        when (getSharedPreferences(DARK_MODE, MODE_PRIVATE).getInt(DARK_MODE_ON, 0)) {
+        when (getSharedPreferences(DARK_MODE, MODE_PRIVATE).getInt(DARK_MODE_ON, 1)) {
             0 -> {
                 darkModeOn = false
                 drawableId = R.drawable.ic_night_mode

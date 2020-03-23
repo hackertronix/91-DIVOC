@@ -37,7 +37,7 @@ class DivocApp : Application() {
         when (getSharedPreferences(
             MainActivity.DARK_MODE,
             AppCompatActivity.MODE_PRIVATE
-        ).getInt(MainActivity.DARK_MODE_ON, 0)) {
+        ).getInt(MainActivity.DARK_MODE_ON, 1)) {
 
             0 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             1 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
