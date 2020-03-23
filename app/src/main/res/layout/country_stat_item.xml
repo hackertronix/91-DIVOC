@@ -18,7 +18,7 @@
 
         <TextView
             android:id="@+id/location"
-            style="@style/TextAppearance.Divoc.CardHeadline"
+            style="@style/TextAppearance.Divoc.Stats.Heading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAllCaps="true"
@@ -33,18 +33,17 @@
 
             <TextView
                 android:id="@+id/confirmed"
-                style="@style/TextAppearance.Divoc.CollapsingHeader.Label"
+                style="@style/TextAppearance.Divoc.Stats.Body"
                 android:layout_width="0dp"
-                android:textAllCaps="true"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textAllCaps="true"
                 android:textColor="?android:textColorSecondary"
                 tools:text="@string/confirmed_header" />
 
             <TextView
                 android:id="@+id/recovered"
-                style="@style/TextAppearance.Divoc.CollapsingHeader.Label"
-                android:layout_width="0dp"
+                style="@style/TextAppearance.Divoc.Stats.Body"                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAllCaps="true"
                 android:layout_weight="1"
@@ -53,8 +52,7 @@
 
             <TextView
                 android:id="@+id/deaths"
-                style="@style/TextAppearance.Divoc.CollapsingHeader.Label"
-                android:layout_width="0dp"
+                style="@style/TextAppearance.Divoc.Stats.Body"                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAllCaps="true"
                 android:layout_weight="1"

@@ -71,6 +71,15 @@
         <item name="android:textSize" tools:ignore="SpUsage">30dp</item>
     </style>
 
+    <!--- Stats-->
+    <style name="TextAppearance.Divoc.Stats.Heading" parent="@style/TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:fontFamily">@font/rubik_medium</item>
+    </style>
+    <style name="TextAppearance.Divoc.Stats.Body" parent="@style/TextAppearance.MaterialComponents.Caption">
+        <item name="android:fontFamily">@font/rubik</item>
+    </style>
+
+
     <style name="TextAppearance.Divoc.SessionTitle" parent="@style/TextAppearance.AppCompat.Caption">
         <item name="android:fontFamily">@font/rubik_medium</item>
     </style>
