@@ -11,18 +11,20 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.hackertronix.divocstats.MainActivity
 import com.hackertronix.divocstats.R
-import com.hackertronix.divocstats.common.RefreshState.Done
-import com.hackertronix.divocstats.common.RefreshState.Loading
+import com.hackertronix.divocstats.common.UiState.Done
+import com.hackertronix.divocstats.common.UiState.Loading
 import com.hackertronix.divocstats.parseDate
 import com.hackertronix.divocstats.toFlagEmoji
 import kotlinx.android.synthetic.main.fragment_overview.appBar
 import kotlinx.android.synthetic.main.fragment_overview.confirmed_textview
+import kotlinx.android.synthetic.main.fragment_overview.content
 import kotlinx.android.synthetic.main.fragment_overview.country_flag
 import kotlinx.android.synthetic.main.fragment_overview.deaths_textview
 import kotlinx.android.synthetic.main.fragment_overview.locale_card
 import kotlinx.android.synthetic.main.fragment_overview.recovered_textview
 import kotlinx.android.synthetic.main.fragment_overview.swipeContainer
 import kotlinx.android.synthetic.main.fragment_overview.updated_at
+import kotlinx.android.synthetic.main.shimmer_overview.shimmer_view
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OverviewFragment : Fragment() {
@@ -54,17 +56,32 @@ class OverviewFragment : Fragment() {
         }
 
         swipeContainer.setOnRefreshListener {
-            viewModel.startRefresh()
+            viewModel.refreshOverview()
         }
     }
 
     private fun subscribeToRefreshState() {
-        viewModel.getRefreshState().observe(viewLifecycleOwner, Observer { state ->
+        viewModel.getUiState().observe(viewLifecycleOwner, Observer { state ->
             when (state) {
-                is Loading -> swipeContainer.isRefreshing = true
-                is Done -> swipeContainer.isRefreshing = false
+                is Loading -> showLoading()
+                is Error -> showContent()
+                is Done -> showContent()
             }
         })
+    }
+
+    private fun showContent() {
+        swipeContainer.isRefreshing = false
+        content.visibility = View.VISIBLE
+        shimmer_view.stopShimmer()
+        shimmer_view.visibility = View.GONE
+    }
+
+    private fun showLoading() {
+        swipeContainer.isRefreshing = true
+        content.visibility = View.INVISIBLE
+        shimmer_view.visibility = View.VISIBLE
+        shimmer_view.startShimmer()
     }
 
     private fun setUpToolbar() {
