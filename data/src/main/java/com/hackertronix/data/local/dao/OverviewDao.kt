@@ -13,7 +13,7 @@ import io.reactivex.Single
 @Dao
 interface OverviewDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertOverview(vararg: Overview)
 
     @Query("DELETE FROM Overview")

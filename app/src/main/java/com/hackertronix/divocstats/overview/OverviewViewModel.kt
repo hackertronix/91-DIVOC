@@ -3,10 +3,13 @@ package com.hackertronix.divocstats.overview
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.hackertronix.OverviewRequestState
+import com.hackertronix.OverviewRequestState.Failure
+import com.hackertronix.OverviewRequestState.Loading
+import com.hackertronix.OverviewRequestState.Success
+import com.hackertronix.OverviewRequestState.SuccessWithoutResult
 import com.hackertronix.data.repository.OverviewRepository
-import com.hackertronix.divocstats.common.RefreshState
-import com.hackertronix.divocstats.common.RefreshState.Done
-import com.hackertronix.divocstats.common.RefreshState.Loading
+import com.hackertronix.divocstats.common.UiState
 import com.hackertronix.model.overview.Overview
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -15,22 +18,28 @@ import io.reactivex.rxkotlin.subscribeBy
 
 class OverviewViewModel(private val repository: OverviewRepository) : ViewModel() {
 
-    private val overviewObservable: Observable<Overview> = repository.getOverview()
+    private val overviewObservable: Observable<OverviewRequestState> = repository.emitter
     private val overviewLiveData = MutableLiveData<Overview>()
-    private val errorLiveData = MutableLiveData<String>()
+
     private val disposables = CompositeDisposable()
-    private val refreshState = MutableLiveData<RefreshState>()
+    private val uiState = MutableLiveData<UiState>()
 
     fun getOverview(): LiveData<Overview> = overviewLiveData
-    fun getRefreshState(): LiveData<RefreshState> = refreshState
+    fun getUiState(): LiveData<UiState> = uiState
 
     init {
+        repository.getOverview()
         disposables += overviewObservable.subscribeBy(
-            onNext = {
-                overviewLiveData.postValue(it)
-            },
-            onError = {
-                errorLiveData.postValue(it.message)
+            onNext = { state ->
+                when (state) {
+                    is Loading -> uiState.postValue(UiState.Loading)
+                    is Failure -> uiState.postValue(UiState.Done)
+                    is SuccessWithoutResult -> uiState.postValue(UiState.Done)
+                    is Success -> {
+                        overviewLiveData.postValue(state.overview)
+                        uiState.postValue(UiState.Done)
+                    }
+                }
             }
         )
     }
@@ -38,24 +47,10 @@ class OverviewViewModel(private val repository: OverviewRepository) : ViewModel(
     override fun onCleared() {
         super.onCleared()
         disposables.dispose()
+        repository.dispose()
     }
 
-    private fun refreshOverview() {
-        disposables += repository.getOverviewFromApi()
-            .subscribeBy(
-                onError = {
-                    errorLiveData.postValue(it.message)
-                    refreshState.postValue(Done)
-                },
-
-                onComplete = {
-                    refreshState.postValue(Done)
-                }
-            )
-    }
-
-    fun startRefresh() {
-        refreshState.postValue(Loading)
-        refreshOverview()
+    fun refreshOverview() {
+        repository.refreshOverview()
     }
 }

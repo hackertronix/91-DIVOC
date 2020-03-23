@@ -1,10 +1,18 @@
 package com.hackertronix.data.repository.india
 
+import com.hackertronix.LatestStatsRequestState
+import com.hackertronix.LatestStatsRequestState.Failure
+import com.hackertronix.LatestStatsRequestState.Loading
+import com.hackertronix.LatestStatsRequestState.Success
+import com.hackertronix.LatestStatsRequestState.SuccessWithoutResult
 import com.hackertronix.data.local.Covid19StatsDatabase
 import com.hackertronix.data.network.IndApi
 import com.hackertronix.model.india.latest.Latest
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.jakewharton.rxrelay2.PublishRelay
+import io.reactivex.Flowable
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.plusAssign
+import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 
 class LatestStatsRepository(
@@ -12,27 +20,67 @@ class LatestStatsRepository(
     private val database: Covid19StatsDatabase
 ) {
 
-    fun getLatestStats(): Observable<Latest> {
-        return database.latestStatsDao().getLatestStats()
-            .toObservable()
+    val emitter = PublishRelay.create<LatestStatsRequestState>()
+    private val disposables = CompositeDisposable()
+
+    fun getLatestStats() {
+        emitter.accept(Loading)
+        disposables += getLatestStatsFromDb()
             .flatMap {
                 if (it.isEmpty()) {
                     return@flatMap getLatestStatsFromApi()
                 }
-                return@flatMap Observable.just(it.first())
+                return@flatMap Flowable.just(Success(it.first()))
             }
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onNext = {
+                    emitter.accept(it)
+                },
+                onError = {
+                    emitter.accept(Failure(it.message!!))
+                }
+            )
     }
 
-    fun getLatestStatsFromApi(): Observable<Latest> {
-        return apiClient.getLatestStats().toObservable()
-            .map {
-                database.latestStatsDao().deleteLatest()
-                database.latestStatsDao().insertLatest(it)
-                return@map it
+    private fun getLatestStatsFromDb(): Flowable<List<Latest>> {
+        return database.latestStatsDao().getLatestStats()
+            .subscribeOn(Schedulers.io())
+    }
+
+    private fun getLatestStatsFromApi(): Flowable<LatestStatsRequestState> {
+        return apiClient.getLatestStats()
+            .map<LatestStatsRequestState> {
+                Success(it)
+            }
+            .onErrorReturn {
+                Failure(it.message!!)
             }
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSuccess { requestState ->
+                when (requestState) {
+                    is Success -> saveToDisk(requestState.latest)
+                }
+            }.toFlowable()
+    }
+
+    private fun saveToDisk(latestStat: Latest) {
+        database.latestStatsDao().insertLatest(latestStat)
+    }
+
+    fun dispose() {
+        disposables.dispose()
+    }
+
+    fun refreshLatestStats() {
+        emitter.accept(Loading)
+        disposables += getLatestStatsFromApi()
+            .subscribeBy(
+                onComplete = {
+                    emitter.accept(SuccessWithoutResult)
+                },
+                onError = {
+                    emitter.accept(Failure(it.message!!))
+                })
     }
 }

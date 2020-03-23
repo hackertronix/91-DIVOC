@@ -1,10 +1,18 @@
 package com.hackertronix.data.repository
 
+import com.hackertronix.OverviewRequestState
+import com.hackertronix.OverviewRequestState.Failure
+import com.hackertronix.OverviewRequestState.Loading
+import com.hackertronix.OverviewRequestState.Success
+import com.hackertronix.OverviewRequestState.SuccessWithoutResult
 import com.hackertronix.data.local.Covid19StatsDatabase
 import com.hackertronix.data.network.API
 import com.hackertronix.model.overview.Overview
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.jakewharton.rxrelay2.PublishRelay
+import io.reactivex.Flowable
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.plusAssign
+import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 
 class OverviewRepository(
@@ -12,27 +20,67 @@ class OverviewRepository(
     private val database: Covid19StatsDatabase
 ) {
 
-    fun getOverview(): Observable<Overview> {
-        return database.overviewDao().getOverview()
-            .toObservable()
+    val emitter = PublishRelay.create<OverviewRequestState>()
+    private val disposables = CompositeDisposable()
+
+    fun getOverview() {
+        emitter.accept(Loading)
+        disposables += getOverviewFromDb()
             .flatMap {
                 if (it.isEmpty()) {
                     return@flatMap getOverviewFromApi()
                 }
-                return@flatMap Observable.just(it.first())
+                return@flatMap Flowable.just(Success(it.first()))
             }
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onNext = { requestState ->
+                    emitter.accept(requestState)
+                },
+                onError = {
+                    emitter.accept(Failure(it.message!!))
+                }
+            )
     }
 
-    fun getOverviewFromApi(): Observable<Overview> {
-        return apiClient.getOverview().toObservable()
-            .map {
-                database.overviewDao().deleteOverview()
-                database.overviewDao().insertOverview(it)
-                return@map it
+    private fun getOverviewFromDb(): Flowable<List<Overview>> {
+        return database.overviewDao().getOverview()
+            .subscribeOn(Schedulers.io())
+    }
+
+    private fun getOverviewFromApi(): Flowable<OverviewRequestState> {
+        return apiClient.getOverview()
+            .map<OverviewRequestState> {
+                Success(it)
             }
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSuccess { requestState ->
+                when (requestState) {
+                    is Success -> saveToDisk(requestState.overview)
+                }
+            }
+            .onErrorReturn {
+                OverviewRequestState.Failure(it.message!!)
+            }.toFlowable()
+    }
+
+    private fun saveToDisk(overview: Overview) {
+        database.overviewDao().insertOverview(overview)
+    }
+
+    fun dispose() {
+        disposables.dispose()
+    }
+
+    fun refreshOverview() {
+        emitter.accept(Loading)
+        disposables += getOverviewFromApi()
+            .subscribeBy(
+                onComplete = {
+                    emitter.accept(SuccessWithoutResult)
+                },
+                onError = {
+                    emitter.accept(Failure(it.message!!))
+                })
     }
 }
