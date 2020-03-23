@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.hackertronix.data.repository.india.LatestStatsRepository
+import com.hackertronix.divocstats.common.RefreshState
+import com.hackertronix.divocstats.common.RefreshState.Done
+import com.hackertronix.divocstats.common.RefreshState.Loading
 import com.hackertronix.model.india.latest.Latest
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -17,6 +20,11 @@ class CountryStatsViewModel(val repository: LatestStatsRepository) : ViewModel()
     private val errorLiveData = MutableLiveData<String>()
     private val disposables = CompositeDisposable()
 
+    private val refreshState = MutableLiveData<RefreshState>()
+
+    fun getLatestStats(): LiveData<Latest> = latestStats
+    fun getRefreshState(): LiveData<RefreshState> = refreshState
+
     init {
         disposables += latestStatsObservable.subscribeBy(
             onNext = {
@@ -28,10 +36,26 @@ class CountryStatsViewModel(val repository: LatestStatsRepository) : ViewModel()
         )
     }
 
-    fun getLatestStats(): LiveData<Latest> = latestStats
-
     override fun onCleared() {
         super.onCleared()
         disposables.dispose()
+    }
+
+    fun startRefresh() {
+        refreshState.postValue(Loading)
+        refreshLatestStats()
+    }
+
+    private fun refreshLatestStats() {
+        disposables += repository.getLatestStatsFromApi()
+            .subscribeBy(
+                onError = {
+                    errorLiveData.postValue(it.localizedMessage)
+                    refreshState.postValue(Done)
+                },
+                onComplete = {
+                    refreshState.postValue(Done)
+                }
+            )
     }
 }

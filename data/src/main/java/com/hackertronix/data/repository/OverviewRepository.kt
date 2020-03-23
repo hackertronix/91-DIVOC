@@ -25,11 +25,14 @@ class OverviewRepository(
             .observeOn(AndroidSchedulers.mainThread())
     }
 
-    private fun getOverviewFromApi(): Observable<Overview>? {
+    fun getOverviewFromApi(): Observable<Overview> {
         return apiClient.getOverview().toObservable()
-            .doOnNext {
+            .map {
                 database.overviewDao().deleteOverview()
                 database.overviewDao().insertOverview(it)
+                return@map it
             }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
     }
 }

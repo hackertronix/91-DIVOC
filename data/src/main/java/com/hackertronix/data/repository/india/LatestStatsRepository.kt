@@ -3,7 +3,6 @@ package com.hackertronix.data.repository.india
 import com.hackertronix.data.local.Covid19StatsDatabase
 import com.hackertronix.data.network.IndApi
 import com.hackertronix.model.india.latest.Latest
-import com.hackertronix.model.overview.Overview
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -26,13 +25,14 @@ class LatestStatsRepository(
             .observeOn(AndroidSchedulers.mainThread())
     }
 
-    private fun getLatestStatsFromApi(): Observable<Latest>? {
+    fun getLatestStatsFromApi(): Observable<Latest> {
         return apiClient.getLatestStats().toObservable()
-            .doOnNext {
+            .map {
                 database.latestStatsDao().deleteLatest()
                 database.latestStatsDao().insertLatest(it)
+                return@map it
             }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
     }
-
-
 }

@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.hackertronix.divocstats.MainActivity
 import com.hackertronix.divocstats.R
+import com.hackertronix.divocstats.common.RefreshState.Done
+import com.hackertronix.divocstats.common.RefreshState.Loading
 import com.hackertronix.divocstats.parseDate
 import com.hackertronix.divocstats.toFlagEmoji
 import kotlinx.android.synthetic.main.fragment_overview.appBar
@@ -19,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_overview.country_flag
 import kotlinx.android.synthetic.main.fragment_overview.deaths_textview
 import kotlinx.android.synthetic.main.fragment_overview.locale_card
 import kotlinx.android.synthetic.main.fragment_overview.recovered_textview
+import kotlinx.android.synthetic.main.fragment_overview.swipeContainer
 import kotlinx.android.synthetic.main.fragment_overview.updated_at
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -36,7 +39,32 @@ class OverviewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpToolbar()
+
         subscribeToOverviewData()
+        subscribeToRefreshState()
+
+        attachListeners()
+    }
+
+    private fun attachListeners() {
+        locale_card.setOnClickListener {
+            activity?.let {
+                (it as MainActivity).showCountryStats(getCountryFromTelephonyManager())
+            }
+        }
+
+        swipeContainer.setOnRefreshListener {
+            viewModel.startRefresh()
+        }
+    }
+
+    private fun subscribeToRefreshState() {
+        viewModel.getRefreshState().observe(viewLifecycleOwner, Observer { state ->
+            when (state) {
+                is Loading -> swipeContainer.isRefreshing = true
+                is Done -> swipeContainer.isRefreshing = false
+            }
+        })
     }
 
     private fun setUpToolbar() {
@@ -45,6 +73,7 @@ class OverviewFragment : Fragment() {
             (it as AppCompatActivity).supportActionBar?.title = it.getString(R.string.overview)
         }
     }
+
     private fun subscribeToOverviewData() {
         viewModel.getOverview().observe(viewLifecycleOwner, Observer { overview ->
             confirmed_textview.text = String.format("%,d", overview.confirmed.confirmedCasesCount)

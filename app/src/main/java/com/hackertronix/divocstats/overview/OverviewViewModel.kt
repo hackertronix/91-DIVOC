@@ -1,11 +1,12 @@
 package com.hackertronix.divocstats.overview
 
-import android.annotation.SuppressLint
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.hackertronix.data.repository.OverviewRepository
+import com.hackertronix.divocstats.common.RefreshState
+import com.hackertronix.divocstats.common.RefreshState.Done
+import com.hackertronix.divocstats.common.RefreshState.Loading
 import com.hackertronix.model.overview.Overview
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -18,6 +19,10 @@ class OverviewViewModel(private val repository: OverviewRepository) : ViewModel(
     private val overviewLiveData = MutableLiveData<Overview>()
     private val errorLiveData = MutableLiveData<String>()
     private val disposables = CompositeDisposable()
+    private val refreshState = MutableLiveData<RefreshState>()
+
+    fun getOverview(): LiveData<Overview> = overviewLiveData
+    fun getRefreshState(): LiveData<RefreshState> = refreshState
 
     init {
         disposables += overviewObservable.subscribeBy(
@@ -25,15 +30,32 @@ class OverviewViewModel(private val repository: OverviewRepository) : ViewModel(
                 overviewLiveData.postValue(it)
             },
             onError = {
-               errorLiveData.postValue(it.message)
+                errorLiveData.postValue(it.message)
             }
         )
     }
 
-    fun getOverview(): LiveData<Overview> = overviewLiveData
-
     override fun onCleared() {
         super.onCleared()
         disposables.dispose()
+    }
+
+    private fun refreshOverview() {
+        disposables += repository.getOverviewFromApi()
+            .subscribeBy(
+                onError = {
+                    errorLiveData.postValue(it.message)
+                    refreshState.postValue(Done)
+                },
+
+                onComplete = {
+                    refreshState.postValue(Done)
+                }
+            )
+    }
+
+    fun startRefresh() {
+        refreshState.postValue(Loading)
+        refreshOverview()
     }
 }

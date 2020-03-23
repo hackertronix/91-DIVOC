@@ -1,173 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".overview.OverviewFragment">
-
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/appBar"
-        style="@style/Widget.Divoc.Toolbar"
+    android:id="@+id/swipeContainer"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_height="match_parent"
+        tools:context=".overview.OverviewFragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/update_card"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_normal"
-        android:layout_marginTop="@dimen/margin_large"
-        android:layout_marginEnd="@dimen/margin_normal"
-        app:cardElevation="2dp"
-        app:layout_constraintBottom_toTopOf="@id/confirmed_card"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appBar">
-
-        <LinearLayout
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/appBar"
+            style="@style/Widget.Divoc.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/TextAppearance.Divoc.CardHeadline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_normal"
-                android:layout_marginTop="@dimen/margin_normal"
-                android:layout_marginEnd="@dimen/margin_normal"
-                android:text="Last updated on"
-                android:textColor="@color/android_blue_pastel" />
-
-            <TextView
-                android:id="@+id/updated_at"
-                style="@style/TextAppearance.Divoc.SessionTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_normal"
-                android:textColor="@color/android_blue_pastel"
-                tools:text="@string/updated_at" />
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/confirmed_card"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_normal"
-        android:layout_marginTop="@dimen/margin_normal"
-        android:layout_marginEnd="@dimen/margin_normal"
-        app:cardElevation="2dp"
-        app:layout_constraintTop_toBottomOf="@+id/update_card">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/TextAppearance.Divoc.CardHeadline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_normal"
-                android:layout_marginTop="@dimen/margin_normal"
-                android:layout_marginEnd="@dimen/margin_normal"
-                android:text="@string/confirmed" />
-
-            <TextView
-                android:id="@+id/confirmed_textview"
-                style="@style/TextAppearance.Divoc.CardBody"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_normal"
-                android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginEnd="@dimen/margin_normal"
-                android:layout_marginBottom="@dimen/margin_large"
-                android:fontFamily="@font/oswald_bold"
-                android:textAlignment="center"
-                tools:text="200,000" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <LinearLayout
-        android:id="@+id/second_row"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/confirmed_card">
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_recovered"
-            android:layout_width="0dp"
+            android:id="@+id/update_card"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:layout_marginBottom="@dimen/margin_normal"
-            android:layout_weight="1"
-            app:cardElevation="2dp">
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginEnd="@dimen/margin_normal"
+            app:cardElevation="2dp"
+            app:layout_constraintBottom_toTopOf="@id/confirmed_card"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appBar">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
                     style="@style/TextAppearance.Divoc.CardHeadline"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_normal"
                     android:layout_marginTop="@dimen/margin_normal"
                     android:layout_marginEnd="@dimen/margin_normal"
-                    android:text="@string/recovered"
-                    android:textColor="@color/android_green" />
+                    android:text="Last updated on"
+                    android:textColor="@color/android_blue_pastel" />
 
                 <TextView
-                    android:id="@+id/recovered_textview"
-                    style="@style/TextAppearance.Divoc.SmallCardBody"
+                    android:id="@+id/updated_at"
+                    style="@style/TextAppearance.Divoc.SessionTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_normal"
-                    android:layout_marginTop="@dimen/margin_small"
-                    android:layout_marginEnd="@dimen/margin_normal"
-                    android:layout_marginBottom="@dimen/margin_large"
-                    android:fontFamily="@font/oswald_bold"
-                    android:textAlignment="center"
-                    android:textColor="@color/android_green"
-                    tools:text="50,000" />
+                    android:layout_margin="@dimen/margin_normal"
+                    android:textColor="@color/android_blue_pastel"
+                    tools:text="@string/updated_at" />
             </LinearLayout>
+
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_death"
-            android:layout_width="0dp"
+            android:id="@+id/confirmed_card"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginTop="@dimen/margin_normal"
             android:layout_marginEnd="@dimen/margin_normal"
-            android:layout_marginBottom="@dimen/margin_normal"
-            android:layout_weight="1"
-            app:cardElevation="2dp">
+            app:cardElevation="2dp"
+            app:layout_constraintTop_toBottomOf="@+id/update_card">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
                     style="@style/TextAppearance.Divoc.CardHeadline"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_normal"
                     android:layout_marginTop="@dimen/margin_normal"
                     android:layout_marginEnd="@dimen/margin_normal"
-                    android:text="@string/death"
-                    android:textColor="@color/red" />
+                    android:text="@string/confirmed" />
 
                 <TextView
-                    android:id="@+id/deaths_textview"
-                    style="@style/TextAppearance.Divoc.SmallCardBody"
+                    android:id="@+id/confirmed_textview"
+                    style="@style/TextAppearance.Divoc.CardBody"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_normal"
@@ -176,48 +91,138 @@
                     android:layout_marginBottom="@dimen/margin_large"
                     android:fontFamily="@font/oswald_bold"
                     android:textAlignment="center"
-                    android:textColor="@color/red"
-                    tools:text="12,780" />
+                    tools:text="200,000" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-    </LinearLayout>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/locale_card"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_normal"
-        android:layout_marginEnd="@dimen/margin_normal"
-        app:cardElevation="2dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/second_row">
 
         <LinearLayout
+            android:id="@+id/second_row"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/confirmed_card">
 
-            <TextView
-                android:id="@+id/country_flag"
-                style="@style/TextAppearance.Divoc.FlagH5"
-                android:layout_width="match_parent"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_recovered"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginBottom="@dimen/margin_normal"
+                android:layout_weight="1"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextAppearance.Divoc.CardHeadline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_normal"
+                        android:layout_marginTop="@dimen/margin_normal"
+                        android:layout_marginEnd="@dimen/margin_normal"
+                        android:text="@string/recovered"
+                        android:textColor="@color/android_green" />
+
+                    <TextView
+                        android:id="@+id/recovered_textview"
+                        style="@style/TextAppearance.Divoc.SmallCardBody"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_normal"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginEnd="@dimen/margin_normal"
+                        android:layout_marginBottom="@dimen/margin_large"
+                        android:fontFamily="@font/oswald_bold"
+                        android:textAlignment="center"
+                        android:textColor="@color/android_green"
+                        tools:text="50,000" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_death"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_normal"
                 android:layout_marginTop="@dimen/margin_normal"
                 android:layout_marginEnd="@dimen/margin_normal"
-                android:textColor="@color/android_blue_pastel"
-                tools:text="🇮🇳" />
+                android:layout_marginBottom="@dimen/margin_normal"
+                android:layout_weight="1"
+                app:cardElevation="2dp">
 
-            <TextView
-                style="@style/TextAppearance.Divoc.SessionTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_normal"
-                android:text="@string/see_your_country_s_stats"
-                android:textColor="@color/ads_light_green" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextAppearance.Divoc.CardHeadline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_normal"
+                        android:layout_marginTop="@dimen/margin_normal"
+                        android:layout_marginEnd="@dimen/margin_normal"
+                        android:text="@string/death"
+                        android:textColor="@color/red" />
+
+                    <TextView
+                        android:id="@+id/deaths_textview"
+                        style="@style/TextAppearance.Divoc.SmallCardBody"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_normal"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginEnd="@dimen/margin_normal"
+                        android:layout_marginBottom="@dimen/margin_large"
+                        android:fontFamily="@font/oswald_bold"
+                        android:textAlignment="center"
+                        android:textColor="@color/red"
+                        tools:text="12,780" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/locale_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginEnd="@dimen/margin_normal"
+            app:cardElevation="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/second_row">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/country_flag"
+                    style="@style/TextAppearance.Divoc.FlagH5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:layout_marginEnd="@dimen/margin_normal"
+                    android:textColor="@color/android_blue_pastel"
+                    tools:text="🇮🇳" />
+
+                <TextView
+                    style="@style/TextAppearance.Divoc.SessionTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_normal"
+                    android:text="@string/see_your_country_s_stats"
+                    android:textColor="@color/ads_light_green" />
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

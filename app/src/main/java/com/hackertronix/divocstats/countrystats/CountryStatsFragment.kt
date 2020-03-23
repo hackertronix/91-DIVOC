@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hackertronix.divocstats.R
+import com.hackertronix.divocstats.common.RefreshState.Done
+import com.hackertronix.divocstats.common.RefreshState.Loading
 import com.hackertronix.divocstats.parseDate
 import com.hackertronix.divocstats.toFlagEmoji
 import com.hackertronix.model.india.latest.Latest
@@ -19,6 +21,7 @@ import kotlinx.android.synthetic.main.collapsing_card.updated_at
 import kotlinx.android.synthetic.main.fragment_country_stats.appBar
 import kotlinx.android.synthetic.main.fragment_country_stats.collapsingToolbar
 import kotlinx.android.synthetic.main.fragment_country_stats.recyclerView
+import kotlinx.android.synthetic.main.fragment_country_stats.swipeContainer
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -58,6 +61,29 @@ class CountryStatsFragment : Fragment() {
         setupToolbar()
         setupRecyclerView()
 
+        subscribeToLatestStats()
+        subscribeToRefreshState()
+
+        attachListeners()
+    }
+
+    private fun attachListeners() {
+        swipeContainer.setOnRefreshListener {
+            viewModel.startRefresh()
+        }
+    }
+
+    private fun subscribeToRefreshState() {
+        viewModel.getRefreshState().observe(viewLifecycleOwner, Observer {
+            state ->
+            when(state){
+                is Loading -> swipeContainer.isRefreshing = true
+                is Done -> swipeContainer.isRefreshing = false
+            }
+        })
+    }
+
+    private fun subscribeToLatestStats() {
         viewModel.getLatestStats().observe(viewLifecycleOwner, Observer { latestStat ->
             setupHeader(latestStat)
             adapter.listOfRegions = latestStat.data.regional
