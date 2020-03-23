@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hackertronix.divocstats.R
-import com.hackertronix.divocstats.common.RefreshState.Done
-import com.hackertronix.divocstats.common.RefreshState.Loading
+import com.hackertronix.divocstats.common.UiState.Done
+import com.hackertronix.divocstats.common.UiState.Loading
 import com.hackertronix.divocstats.parseDate
 import com.hackertronix.divocstats.toFlagEmoji
 import com.hackertronix.model.india.latest.Latest
@@ -69,7 +69,7 @@ class CountryStatsFragment : Fragment() {
 
     private fun attachListeners() {
         swipeContainer.setOnRefreshListener {
-            viewModel.startRefresh()
+            viewModel.refreshLatestStats()
         }
     }
 
