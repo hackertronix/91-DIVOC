@@ -30,6 +30,6 @@ fun String.parseDate(): String {
 }
 
 fun String.parseDateToLong(): Long {
-    val formatter = DateTimeFormat.forPattern("yyyy-mm-dd")
+    val formatter = DateTimeFormat.forPattern("yyyy-MM-dd")
     return formatter.parseMillis(this)
 }
