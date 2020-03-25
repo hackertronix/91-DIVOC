@@ -81,13 +81,6 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
-                    <com.github.mikephil.charting.charts.LineChart
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:layout_marginBottom="@dimen/margin_normal"
-                        android:id="@+id/confirmed_chart"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -115,6 +108,13 @@
                             android:textAlignment="center"
                             tools:text="200,000" />
                     </LinearLayout>
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="bottom"
+                        android:layout_margin="@dimen/margin_normal"
+                        android:id="@+id/confirmed_chart"/>
+
                 </FrameLayout>
 
 

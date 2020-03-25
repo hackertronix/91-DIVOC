@@ -99,7 +99,7 @@ class OverviewRepository(
             .subscribeOn(Schedulers.io())
             .subscribeBy(
                 onNext = { response ->
-                    dailyStatsEmitter.accept(response)
+                    dailyStatsEmitter.accept(response.reversed())
                 },
                 onError = {
 

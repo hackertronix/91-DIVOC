@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.github.mikephil.charting.components.Description
+import com.github.mikephil.charting.components.YAxis.AxisDependency.LEFT
 import com.github.mikephil.charting.data.LineData
 import com.hackertronix.divocstats.MainActivity
 import com.hackertronix.divocstats.R
@@ -65,11 +66,22 @@ class OverviewFragment : Fragment() {
                 setDrawBorders(false)
                 setDrawGridBackground(false)
                 setDrawBorders(false)
+                setScaleEnabled(false)
+                setPinchZoom(false)
+                isDoubleTapToZoomEnabled = false
+                setTouchEnabled(false)
+
                 legend.isEnabled = false
-                isAutoScaleMinMaxEnabled = true
                 axisLeft.isEnabled = false
                 axisRight.isEnabled = false
                 xAxis.isEnabled = false
+
+                setVisibleXRangeMaximum(30f)
+                setVisibleXRangeMinimum(10000f)
+                setVisibleYRangeMaximum(900000f,LEFT)
+                axisLeft.granularity = 50000f;
+                xAxis.granularity = 864000000f;
+                xAxis.isGranularityEnabled = true;
             }
             confirmed_chart.data = LineData(dataSet)
             confirmed_chart.invalidate()

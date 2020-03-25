@@ -20,6 +20,6 @@ interface DailyStatsDao {
     @Query("DELETE FROM DailyStats")
     fun deleteLatest()
 
-    @Query("SELECT * FROM DailyStats ORDER BY reportDate ASC")
+    @Query("SELECT * FROM DailyStats GROUP BY reportDate ORDER BY reportDate DESC LIMIT 60")
     fun getDailyStats(): Flowable<List<DailyStats>>
 }
