@@ -1,15 +1,17 @@
 package com.hackertronix.divocstats.overview
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.telephony.TelephonyManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.ColorUtils
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.YAxis.AxisDependency.LEFT
 import com.github.mikephil.charting.data.LineData
 import com.hackertronix.divocstats.MainActivity
@@ -18,18 +20,10 @@ import com.hackertronix.divocstats.common.UiState.Done
 import com.hackertronix.divocstats.common.UiState.Loading
 import com.hackertronix.divocstats.parseDate
 import com.hackertronix.divocstats.toFlagEmoji
-import kotlinx.android.synthetic.main.fragment_overview.appBar
-import kotlinx.android.synthetic.main.fragment_overview.confirmed_chart
-import kotlinx.android.synthetic.main.fragment_overview.confirmed_textview
-import kotlinx.android.synthetic.main.fragment_overview.content
-import kotlinx.android.synthetic.main.fragment_overview.country_flag
-import kotlinx.android.synthetic.main.fragment_overview.deaths_textview
-import kotlinx.android.synthetic.main.fragment_overview.locale_card
-import kotlinx.android.synthetic.main.fragment_overview.recovered_textview
-import kotlinx.android.synthetic.main.fragment_overview.swipeContainer
-import kotlinx.android.synthetic.main.fragment_overview.updated_at
-import kotlinx.android.synthetic.main.shimmer_overview.shimmer_view
+import kotlinx.android.synthetic.main.fragment_overview.*
+import kotlinx.android.synthetic.main.shimmer_overview.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class OverviewFragment : Fragment() {
 
@@ -60,7 +54,20 @@ class OverviewFragment : Fragment() {
             dataSet.lineWidth = 2f;
             dataSet.setDrawCircles(false);
 
-            dataSet.setDrawCircles(false);
+            val attrs = intArrayOf(android.R.attr.textColorSecondary)
+            val typedArray = requireActivity().theme.obtainStyledAttributes(attrs)
+            val textColor = typedArray.getColor(0, Color.WHITE)
+            typedArray.recycle()
+
+            dataSet.color = textColor
+
+            val gradientDrawable = GradientDrawable(
+                GradientDrawable.Orientation.TOP_BOTTOM,
+                intArrayOf(textColor, ColorUtils.setAlphaComponent(textColor, 0x4d))
+            )
+            dataSet.setDrawFilled(true)
+            dataSet.fillDrawable = gradientDrawable
+
             confirmed_chart.apply {
                 description.isEnabled = false
                 setDrawBorders(false)
@@ -70,7 +77,6 @@ class OverviewFragment : Fragment() {
                 setPinchZoom(false)
                 isDoubleTapToZoomEnabled = false
                 setTouchEnabled(false)
-
                 legend.isEnabled = false
                 axisLeft.isEnabled = false
                 axisRight.isEnabled = false
@@ -78,10 +84,10 @@ class OverviewFragment : Fragment() {
 
                 setVisibleXRangeMaximum(30f)
                 setVisibleXRangeMinimum(10000f)
-                setVisibleYRangeMaximum(900000f,LEFT)
-                axisLeft.granularity = 50000f;
-                xAxis.granularity = 864000000f;
-                xAxis.isGranularityEnabled = true;
+                setVisibleYRangeMaximum(dataSet.yMax, LEFT)
+                axisLeft.granularity = 50000f
+                xAxis.granularity = 864000000f
+                xAxis.isGranularityEnabled = true
             }
             confirmed_chart.data = LineData(dataSet)
             confirmed_chart.invalidate()
@@ -152,7 +158,8 @@ class OverviewFragment : Fragment() {
     }
 
     private fun getCountryFromTelephonyManager(): String {
-        val telephonyManager = activity?.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+        val telephonyManager =
+            activity?.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
         return telephonyManager.simCountryIso
     }
 
