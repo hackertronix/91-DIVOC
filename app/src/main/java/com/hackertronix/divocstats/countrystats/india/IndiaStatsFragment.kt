@@ -1,4 +1,4 @@
-package com.hackertronix.divocstats.countrystats
+package com.hackertronix.divocstats.countrystats.india
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,29 +7,29 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.hackertronix.divocstats.R
 import com.hackertronix.divocstats.common.UiState.Done
 import com.hackertronix.divocstats.common.UiState.Loading
+import com.hackertronix.divocstats.countrystats.CountryStatsAdapter
 import com.hackertronix.divocstats.parseDate
 import com.hackertronix.divocstats.toFlagEmoji
 import com.hackertronix.model.india.latest.Latest
+import kotlinx.android.synthetic.main.collapsing_card.confirmed
+import kotlinx.android.synthetic.main.collapsing_card.deaths
+import kotlinx.android.synthetic.main.collapsing_card.recovered
 import kotlinx.android.synthetic.main.collapsing_card.updated_at
-import kotlinx.android.synthetic.main.fragment_country_stats.appBar
-import kotlinx.android.synthetic.main.fragment_country_stats.confirmed_textview
-import kotlinx.android.synthetic.main.fragment_country_stats.content
-import kotlinx.android.synthetic.main.fragment_country_stats.deaths_textview
-import kotlinx.android.synthetic.main.fragment_country_stats.recovered_textview
-import kotlinx.android.synthetic.main.fragment_country_stats.swipeContainer
-import kotlinx.android.synthetic.main.shimmer_overview.shimmer_view
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.android.synthetic.main.fragment_india_stats.appBar
+import kotlinx.android.synthetic.main.fragment_india_stats.collapsingToolbar
+import kotlinx.android.synthetic.main.fragment_india_stats.recyclerView
+import kotlinx.android.synthetic.main.fragment_india_stats.swipeContainer
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CountryStatsFragment : Fragment() {
+class IndiaStatsFragment : Fragment() {
 
-    val viewModel: CountryStatsViewModel by viewModel()
+    val viewModel: IndiaStatsViewModel by viewModel()
+    val adapter: CountryStatsAdapter by inject()
 
     private var countryCode: String? = null
 
@@ -42,7 +42,7 @@ class CountryStatsFragment : Fragment() {
 
     private fun setupToolbar() {
         activity?.let {
-            appBar.title = it.getString(R.string.country_stats, countryCode?.toFlagEmoji())
+            collapsingToolbar.title = it.getString(R.string.country_stats, countryCode?.toFlagEmoji())
             (it as AppCompatActivity).setSupportActionBar(appBar)
             (it as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
             (it as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -60,6 +60,7 @@ class CountryStatsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupToolbar()
+        setupRecyclerView()
 
         subscribeToLatestStats()
         subscribeToRefreshState()
@@ -74,36 +75,32 @@ class CountryStatsFragment : Fragment() {
     }
 
     private fun subscribeToRefreshState() {
-        viewModel.getUiState().observe(viewLifecycleOwner, Observer { state ->
+        viewModel.getRefreshState().observe(viewLifecycleOwner, Observer { state ->
             when (state) {
-                is Loading -> showLoading()
-                is Error -> showContent()
-                is Done -> showContent()
+                is Loading -> swipeContainer.isRefreshing = true
+                is Done -> swipeContainer.isRefreshing = false
             }
         })
     }
 
-    private fun showContent() {
-        swipeContainer.isRefreshing = false
-        content.visibility = View.VISIBLE
-        shimmer_view.stopShimmer()
-        shimmer_view.visibility = View.GONE
-    }
-
-    private fun showLoading() {
-        swipeContainer.isRefreshing = true
-        content.visibility = View.INVISIBLE
-        shimmer_view.visibility = View.VISIBLE
-        shimmer_view.startShimmer()
-    }
-
     private fun subscribeToLatestStats() {
-        viewModel.getLatestStats().observe(viewLifecycleOwner, Observer { overview ->
-            confirmed_textview.text = String.format("%,d", totalConfirmed(overview))
-            recovered_textview.text = String.format("%,d", overview.data.summary.discharged)
-            deaths_textview.text = String.format("%,d", overview.data.summary.deaths)
-            updated_at.text = setDate(overview.lastRefreshed.parseDate())
+        viewModel.getLatestStats().observe(viewLifecycleOwner, Observer { latestStat ->
+            setupHeader(latestStat)
+            adapter.listOfRegions = latestStat.data.regional
+            adapter.notifyDataSetChanged()
         })
+    }
+
+    private fun setupRecyclerView() {
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+        recyclerView.adapter = adapter
+    }
+
+    private fun setupHeader(latestStat: Latest) {
+        confirmed.text = resources.getString(R.string.confirmed_header, totalConfirmed(latestStat))
+        recovered.text = resources.getString(R.string.recovered_header, latestStat.data.summary.discharged)
+        deaths.text = resources.getString(R.string.deaths_header, latestStat.data.summary.deaths)
+        updated_at.text = setDate(latestStat.lastRefreshed.parseDate())
     }
 
     private fun totalConfirmed(latestStat: Latest): Int {
@@ -117,27 +114,14 @@ class CountryStatsFragment : Fragment() {
 
     companion object {
         private const val COUNTRY_CODE = "country_code"
-        const val INDIA = "IN"
+        private const val INDIA = "IN"
 
         @JvmStatic
         fun newInstance(countryCode: String) =
-            CountryStatsFragment().apply {
+            IndiaStatsFragment().apply {
                 arguments = Bundle().apply {
                     putString(COUNTRY_CODE, countryCode)
                 }
             }
     }
-
-
-
-
-
-
-    fun amerDoubt(){
-
-
-
-
-    }
-
 }

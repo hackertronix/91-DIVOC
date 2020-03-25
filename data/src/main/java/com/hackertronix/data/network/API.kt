@@ -1,7 +1,8 @@
 package com.hackertronix.data.network
 
+import com.hackertronix.model.global.daily.DailyStats
 import com.hackertronix.model.india.latest.Latest
-import com.hackertronix.model.overview.Overview
+import com.hackertronix.model.global.overview.Overview
 import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.Response
@@ -14,6 +15,9 @@ interface API {
 
     @GET("/api")
     fun getOverview(): Single<Overview>
+
+    @GET("/api/daily")
+    fun getHistoricStats(): Single<List<DailyStats>>
 }
 
 interface IndApi{

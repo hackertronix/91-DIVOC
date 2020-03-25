@@ -1,7 +1,7 @@
 package com.hackertronix
 
 import com.hackertronix.model.india.latest.Latest
-import com.hackertronix.model.overview.Overview
+import com.hackertronix.model.global.overview.Overview
 
 sealed class OverviewRequestState {
     object Loading : OverviewRequestState()

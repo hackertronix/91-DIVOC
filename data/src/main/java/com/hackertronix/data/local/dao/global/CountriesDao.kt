@@ -1,4 +1,4 @@
-package com.hackertronix.data.local.dao
+package com.hackertronix.data.local.dao.global
 
 import androidx.room.Dao
 

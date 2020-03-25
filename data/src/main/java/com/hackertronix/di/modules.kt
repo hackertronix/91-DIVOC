@@ -19,5 +19,5 @@ val databaseModule = module {
 
 val repositoryModule = module {
     factory { OverviewRepository(get(), get()) }
-    factory { LatestStatsRepository(get(), get()) }
+    factory { LatestStatsRepository(get(), get(), get()) }
 }

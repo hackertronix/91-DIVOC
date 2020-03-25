@@ -7,7 +7,15 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.get
+import androidx.lifecycle.lifecycleScope
 import com.hackertronix.divocstats.countrystats.CountryStatsFragment
+import com.hackertronix.divocstats.countrystats.CountryStatsFragment.Companion.INDIA
+import com.hackertronix.divocstats.countrystats.india.IndiaStatsFragment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,13 +39,18 @@ class MainActivity : AppCompatActivity() {
                 drawableId = R.drawable.ic_brightness_7_black_24dp
             }
         }
+
     }
 
     fun showCountryStats(countryCode: String) {
         val fragmentManager = supportFragmentManager
         var countryStatsFragment = fragmentManager.findFragmentByTag(COUNTRY_STATS_FRAGMENT)
         if (countryStatsFragment == null) {
-            countryStatsFragment = CountryStatsFragment.newInstance("IN")
+
+            countryStatsFragment = when (countryCode) {
+                INDIA -> IndiaStatsFragment.newInstance(countryCode)
+                else -> CountryStatsFragment.newInstance(countryCode)
+            }
             fragmentManager.beginTransaction()
                 .replace(R.id.container, countryStatsFragment, COUNTRY_STATS_FRAGMENT)
                 .addToBackStack(COUNTRY_STATS_FRAGMENT)
@@ -50,8 +63,6 @@ class MainActivity : AppCompatActivity() {
         menu?.get(0)?.icon = resources.getDrawable(drawableId, theme)
         return true
     }
-
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
@@ -69,16 +80,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if(supportFragmentManager.backStackEntryCount >= 1)
-        {
+        if (supportFragmentManager.backStackEntryCount >= 1) {
             invalidateOptionsMenu()
         }
         super.onBackPressed()
     }
 
     private fun handleOnBackPressed() {
-        if(supportFragmentManager.backStackEntryCount >= 1)
-        {
+        if (supportFragmentManager.backStackEntryCount >= 1) {
             invalidateOptionsMenu()
         }
         onBackPressed()

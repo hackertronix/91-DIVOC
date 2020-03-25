@@ -1,8 +1,5 @@
 package com.hackertronix.divocstats
 
-import android.content.Context
-import android.telephony.TelephonyManager
-import androidx.core.content.ContextCompat.getSystemService
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 
@@ -30,4 +27,9 @@ fun String.parseDate(): String {
                 .toLocalDateTime()
                 .toDateTime().millis
         )
+}
+
+fun String.parseDateToLong(): Long {
+    val formatter = DateTimeFormat.forPattern("yyyy-mm-dd")
+    return formatter.parseMillis(this)
 }

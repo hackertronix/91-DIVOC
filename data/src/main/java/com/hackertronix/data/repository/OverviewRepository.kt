@@ -7,7 +7,8 @@ import com.hackertronix.OverviewRequestState.Success
 import com.hackertronix.OverviewRequestState.SuccessWithoutResult
 import com.hackertronix.data.local.Covid19StatsDatabase
 import com.hackertronix.data.network.API
-import com.hackertronix.model.overview.Overview
+import com.hackertronix.model.global.daily.DailyStats
+import com.hackertronix.model.global.overview.Overview
 import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.Flowable
 import io.reactivex.disposables.CompositeDisposable
@@ -20,11 +21,12 @@ class OverviewRepository(
     private val database: Covid19StatsDatabase
 ) {
 
-    val emitter = PublishRelay.create<OverviewRequestState>()
+    val overviewEmitter = PublishRelay.create<OverviewRequestState>()
+    val dailyStatsEmitter = PublishRelay.create<List<DailyStats>>()
     private val disposables = CompositeDisposable()
 
     fun getOverview() {
-        emitter.accept(Loading)
+        overviewEmitter.accept(Loading)
         disposables += getOverviewFromDb()
             .flatMap {
                 if (it.isEmpty()) {
@@ -35,10 +37,10 @@ class OverviewRepository(
             .subscribeOn(Schedulers.io())
             .subscribeBy(
                 onNext = { requestState ->
-                    emitter.accept(requestState)
+                    overviewEmitter.accept(requestState)
                 },
                 onError = {
-                    emitter.accept(Failure(it.message!!))
+                    overviewEmitter.accept(Failure(it.message!!))
                 }
             )
     }
@@ -73,14 +75,64 @@ class OverviewRepository(
     }
 
     fun refreshOverview() {
-        emitter.accept(Loading)
+        overviewEmitter.accept(Loading)
         disposables += getOverviewFromApi()
             .subscribeBy(
                 onComplete = {
-                    emitter.accept(SuccessWithoutResult)
+                    overviewEmitter.accept(SuccessWithoutResult)
                 },
                 onError = {
-                    emitter.accept(Failure(it.message!!))
+                    overviewEmitter.accept(Failure(it.message!!))
+                })
+    }
+
+
+
+    fun getDailyStats() {
+        disposables += getDailyStatsFromDb()
+            .flatMap {
+                if (it.isEmpty()) {
+                    return@flatMap getDailyStatsFromApi()
+                }
+                return@flatMap Flowable.just(it)
+            }
+            .subscribeOn(Schedulers.io())
+            .subscribeBy(
+                onNext = { response ->
+                    dailyStatsEmitter.accept(response)
+                },
+                onError = {
+
+                }
+            )
+    }
+    private fun getDailyStatsFromDb(): Flowable<List<DailyStats>> {
+        return database.dailyStatsDao().getDailyStats()
+            .subscribeOn(Schedulers.io())
+    }
+    private fun getDailyStatsFromApi(): Flowable<List<DailyStats>> {
+        return apiClient.getHistoricStats()
+            .subscribeOn(Schedulers.io())
+            .doOnSuccess { response ->
+               saveToDisk(response)
+            }
+            .onErrorReturn {
+               emptyList()
+            }.toFlowable()
+    }
+    private fun saveToDisk(dailyStats: List<DailyStats>) {
+        database.dailyStatsDao().insertDailyStat(dailyStats)
+    }
+
+    fun refreshDailyStats() {
+        overviewEmitter.accept(Loading)
+        disposables += getOverviewFromApi()
+            .subscribeBy(
+                onComplete = {
+                    overviewEmitter.accept(SuccessWithoutResult)
+                },
+                onError = {
+                    overviewEmitter.accept(Failure(it.message!!))
                 })
     }
 }

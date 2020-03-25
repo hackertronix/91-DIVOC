@@ -1,4 +1,4 @@
-package com.hackertronix.divocstats.countrystats
+package com.hackertronix.divocstats.countrystats.india
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,7 +16,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
 
-class CountryStatsViewModel(private val repository: LatestStatsRepository) : ViewModel() {
+class IndiaStatsViewModel(private val repository: LatestStatsRepository) : ViewModel() {
 
     private val latestStatsObservable: Observable<LatestStatsRequestState> = repository.emitter
     private val latestStatsLiveData = MutableLiveData<Latest>()
@@ -25,7 +25,7 @@ class CountryStatsViewModel(private val repository: LatestStatsRepository) : Vie
     private val uiState = MutableLiveData<UiState>()
 
     fun getLatestStats(): LiveData<Latest> = latestStatsLiveData
-    fun getUiState(): LiveData<UiState> = uiState
+    fun getRefreshState(): LiveData<UiState> = uiState
 
     init {
         repository.getLatestIndiaStats()

@@ -1,4 +1,4 @@
-package com.hackertronix.model.overview
+package com.hackertronix.model.global.overview
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

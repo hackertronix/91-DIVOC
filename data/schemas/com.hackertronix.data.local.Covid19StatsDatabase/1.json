@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "a713aa7e8c892ee0430da7fc0b7d87a8",
+    "identityHash": "f93c882cc54979cdacfcf226a6f4f3a5",
     "entities": [
       {
         "tableName": "Confirmed",
@@ -3449,12 +3449,86 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "DailyStats",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`totalConfirmed` INTEGER NOT NULL, `mainlandChina` INTEGER NOT NULL, `otherLocations` INTEGER NOT NULL, `deltaConfirmed` INTEGER NOT NULL, `totalRecovered` INTEGER NOT NULL, `active` INTEGER NOT NULL, `deltaRecovered` INTEGER NOT NULL, `incidentRate` INTEGER NOT NULL, `peopleTested` INTEGER NOT NULL, `reportDate` TEXT NOT NULL, PRIMARY KEY(`reportDate`))",
+        "fields": [
+          {
+            "fieldPath": "totalConfirmed",
+            "columnName": "totalConfirmed",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mainlandChina",
+            "columnName": "mainlandChina",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "otherLocations",
+            "columnName": "otherLocations",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deltaConfirmed",
+            "columnName": "deltaConfirmed",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "totalRecovered",
+            "columnName": "totalRecovered",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "active",
+            "columnName": "active",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deltaRecovered",
+            "columnName": "deltaRecovered",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "incidentRate",
+            "columnName": "incidentRate",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "peopleTested",
+            "columnName": "peopleTested",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reportDate",
+            "columnName": "reportDate",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "reportDate"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a713aa7e8c892ee0430da7fc0b7d87a8')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f93c882cc54979cdacfcf226a6f4f3a5')"
     ]
   }
 }

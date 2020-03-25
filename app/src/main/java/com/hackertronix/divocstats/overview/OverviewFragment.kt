@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.github.mikephil.charting.components.Description
+import com.github.mikephil.charting.data.LineData
 import com.hackertronix.divocstats.MainActivity
 import com.hackertronix.divocstats.R
 import com.hackertronix.divocstats.common.UiState.Done
@@ -16,6 +18,7 @@ import com.hackertronix.divocstats.common.UiState.Loading
 import com.hackertronix.divocstats.parseDate
 import com.hackertronix.divocstats.toFlagEmoji
 import kotlinx.android.synthetic.main.fragment_overview.appBar
+import kotlinx.android.synthetic.main.fragment_overview.confirmed_chart
 import kotlinx.android.synthetic.main.fragment_overview.confirmed_textview
 import kotlinx.android.synthetic.main.fragment_overview.content
 import kotlinx.android.synthetic.main.fragment_overview.country_flag
@@ -43,9 +46,34 @@ class OverviewFragment : Fragment() {
         setUpToolbar()
 
         subscribeToOverviewData()
+        subscribeToGraphingData()
         subscribeToRefreshState()
 
         attachListeners()
+    }
+
+    private fun subscribeToGraphingData() {
+        viewModel.getConfirmedDataSet().observe(viewLifecycleOwner, Observer { dataSet ->
+
+            dataSet.setDrawValues(false);
+            dataSet.lineWidth = 2f;
+            dataSet.setDrawCircles(false);
+
+            dataSet.setDrawCircles(false);
+            confirmed_chart.apply {
+                description.isEnabled = false
+                setDrawBorders(false)
+                setDrawGridBackground(false)
+                setDrawBorders(false)
+                legend.isEnabled = false
+                isAutoScaleMinMaxEnabled = true
+                axisLeft.isEnabled = false
+                axisRight.isEnabled = false
+                xAxis.isEnabled = false
+            }
+            confirmed_chart.data = LineData(dataSet)
+            confirmed_chart.invalidate()
+        })
     }
 
     private fun attachListeners() {
@@ -113,8 +141,7 @@ class OverviewFragment : Fragment() {
 
     private fun getCountryFromTelephonyManager(): String {
         val telephonyManager = activity?.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-//        return telephonyManager.simCountryIso
-        return "IN"
+        return telephonyManager.simCountryIso
     }
 
     companion object {

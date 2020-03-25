@@ -1,9 +1,9 @@
-package com.hackertronix.model.overview
+package com.hackertronix.model.global.overview
 
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.hackertronix.model.overview.Countries
+import com.hackertronix.model.global.overview.Countries
 import com.squareup.moshi.Json
 @Entity
 data class CountriesResponse(

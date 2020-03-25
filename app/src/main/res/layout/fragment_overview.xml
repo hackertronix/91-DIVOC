@@ -78,33 +78,46 @@
                 android:layout_marginEnd="@dimen/margin_normal"
                 app:cardElevation="2dp">
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
-                    <TextView
-                        style="@style/TextAppearance.Divoc.CardHeadline"
+                    <com.github.mikephil.charting.charts.LineChart
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_normal"
-                        android:layout_marginTop="@dimen/margin_normal"
-                        android:layout_marginEnd="@dimen/margin_normal"
-                        android:text="@string/confirmed" />
-
-                    <TextView
-                        android:id="@+id/confirmed_textview"
-                        style="@style/TextAppearance.Divoc.CardBody"
+                        android:layout_gravity="bottom"
+                        android:layout_marginBottom="@dimen/margin_normal"
+                        android:id="@+id/confirmed_chart"/>
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_normal"
-                        android:layout_marginTop="@dimen/margin_small"
-                        android:layout_marginEnd="@dimen/margin_normal"
-                        android:layout_marginBottom="@dimen/margin_large"
-                        android:fontFamily="@font/oswald_bold"
-                        android:textAlignment="center"
-                        tools:text="200,000" />
-                </LinearLayout>
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextAppearance.Divoc.CardHeadline"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_normal"
+                            android:layout_marginTop="@dimen/margin_normal"
+                            android:layout_marginEnd="@dimen/margin_normal"
+                            android:text="@string/confirmed" />
+
+                        <TextView
+                            android:id="@+id/confirmed_textview"
+                            style="@style/TextAppearance.Divoc.CardBody"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_normal"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:layout_marginEnd="@dimen/margin_normal"
+                            android:layout_marginBottom="@dimen/margin_large"
+                            android:fontFamily="@font/oswald_bold"
+                            android:textAlignment="center"
+                            tools:text="200,000" />
+                    </LinearLayout>
+                </FrameLayout>
+
+
             </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout

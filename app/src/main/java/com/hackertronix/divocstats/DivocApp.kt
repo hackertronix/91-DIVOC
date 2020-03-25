@@ -51,9 +51,9 @@ class DivocApp : Application() {
         val telephonyManager = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
         val countryCode = telephonyManager.simCountryIso
 
-//        if (countryCode == "IN") {
+        if (countryCode == "IN") {
         val latestStatsRequest = PeriodicWorkRequestBuilder<LatestStatsWorker>(1, HOURS).build()
         WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork("LatestStatsWorker", KEEP, latestStatsRequest)
-//        }
+        }
     }
 }

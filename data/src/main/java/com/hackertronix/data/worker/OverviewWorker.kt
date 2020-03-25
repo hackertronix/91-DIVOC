@@ -6,7 +6,7 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.hackertronix.data.local.Covid19StatsDatabase
 import com.hackertronix.data.network.API
-import com.hackertronix.model.overview.Overview
+import com.hackertronix.model.global.overview.Overview
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign

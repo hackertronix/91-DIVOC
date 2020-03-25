@@ -1,4 +1,4 @@
-package com.hackertronix.model.overview
+package com.hackertronix.model.global.overview
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -7,11 +7,11 @@ import com.squareup.moshi.JsonClass
 
 @Entity
 @JsonClass(generateAdapter = true)
-data class Confirmed(
+data class Deaths(
     @PrimaryKey(autoGenerate = true)
-    val confirmedId: Int = 0,
+    val deathId: Int = 0,
     @field:Json(name = "value")
-    val confirmedCasesCount: Int = 0,
+    val deathCasesCount: Int = 0,
     @field:Json(name = "detail")
-    val confirmedCasesDetail: String = ""
+    val deathCasesDetail: String = ""
 )
