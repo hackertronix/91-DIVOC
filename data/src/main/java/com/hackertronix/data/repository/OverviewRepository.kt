@@ -1,5 +1,6 @@
 package com.hackertronix.data.repository
 
+import android.util.Log
 import com.hackertronix.OverviewRequestState
 import com.hackertronix.OverviewRequestState.Failure
 import com.hackertronix.OverviewRequestState.Loading
@@ -7,7 +8,7 @@ import com.hackertronix.OverviewRequestState.Success
 import com.hackertronix.OverviewRequestState.SuccessWithoutResult
 import com.hackertronix.data.local.Covid19StatsDatabase
 import com.hackertronix.data.network.API
-import com.hackertronix.model.global.daily.DailyStats
+import com.hackertronix.model.global.daily.Daily
 import com.hackertronix.model.global.overview.Overview
 import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.Flowable
@@ -22,7 +23,7 @@ class OverviewRepository(
 ) {
 
     val overviewEmitter = PublishRelay.create<OverviewRequestState>()
-    val dailyStatsEmitter = PublishRelay.create<List<DailyStats>>()
+    val dailyStatsEmitter = PublishRelay.create<List<Daily>>()
     private val disposables = CompositeDisposable()
 
     fun getOverview() {
@@ -102,25 +103,24 @@ class OverviewRepository(
                     dailyStatsEmitter.accept(response.reversed())
                 },
                 onError = {
-
+                    Log.d("Err",it.message)
                 }
             )
+
     }
-    private fun getDailyStatsFromDb(): Flowable<List<DailyStats>> {
+    private fun getDailyStatsFromDb(): Flowable<List<Daily>> {
         return database.dailyStatsDao().getDailyStats()
             .subscribeOn(Schedulers.io())
     }
-    private fun getDailyStatsFromApi(): Flowable<List<DailyStats>> {
+    private fun getDailyStatsFromApi(): Flowable<List<Daily>> {
         return apiClient.getHistoricStats()
             .subscribeOn(Schedulers.io())
             .doOnSuccess { response ->
                saveToDisk(response)
             }
-            .onErrorReturn {
-               emptyList()
-            }.toFlowable()
+            .toFlowable()
     }
-    private fun saveToDisk(dailyStats: List<DailyStats>) {
+    private fun saveToDisk(dailyStats: List<Daily>) {
         database.dailyStatsDao().insertDailyStat(dailyStats)
     }
 

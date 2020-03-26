@@ -10,7 +10,7 @@ import com.squareup.moshi.JsonClass
 
 @Entity
 @JsonClass(generateAdapter = true)
-data class Latest(
+data class LatestIndianStats(
 
     @Embedded(prefix = "data")
     @Json(name = "data")

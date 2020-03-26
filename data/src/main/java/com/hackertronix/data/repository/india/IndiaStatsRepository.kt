@@ -1,14 +1,13 @@
 package com.hackertronix.data.repository.india
 
-import com.hackertronix.LatestStatsRequestState
-import com.hackertronix.LatestStatsRequestState.Failure
-import com.hackertronix.LatestStatsRequestState.Loading
-import com.hackertronix.LatestStatsRequestState.Success
-import com.hackertronix.LatestStatsRequestState.SuccessWithoutResult
+import com.hackertronix.IndiaStatsRequestState
+import com.hackertronix.IndiaStatsRequestState.Failure
+import com.hackertronix.IndiaStatsRequestState.Loading
+import com.hackertronix.IndiaStatsRequestState.Success
+import com.hackertronix.IndiaStatsRequestState.SuccessWithoutResult
 import com.hackertronix.data.local.Covid19StatsDatabase
-import com.hackertronix.data.network.API
 import com.hackertronix.data.network.IndApi
-import com.hackertronix.model.india.latest.Latest
+import com.hackertronix.model.india.latest.LatestIndianStats
 import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.Flowable
 import io.reactivex.disposables.CompositeDisposable
@@ -16,13 +15,12 @@ import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 
-class LatestStatsRepository(
+class IndiaStatsRepository(
     private val indiaApiClient: IndApi,
-    private val apiClient: API,
     private val database: Covid19StatsDatabase
 ) {
 
-    val emitter = PublishRelay.create<LatestStatsRequestState>()
+    val emitter = PublishRelay.create<IndiaStatsRequestState>()
     private val disposables = CompositeDisposable()
 
     fun getLatestIndiaStats() {
@@ -45,14 +43,14 @@ class LatestStatsRepository(
             )
     }
 
-    private fun getLatestIndiaStatsFromDb(): Flowable<List<Latest>> {
+    private fun getLatestIndiaStatsFromDb(): Flowable<List<LatestIndianStats>> {
         return database.latestStatsDao().getLatestStats()
             .subscribeOn(Schedulers.io())
     }
 
-    private fun getLatestIndiaStatsFromApi(): Flowable<LatestStatsRequestState> {
+    private fun getLatestIndiaStatsFromApi(): Flowable<IndiaStatsRequestState> {
         return indiaApiClient.getLatestStats()
-            .map<LatestStatsRequestState> {
+            .map<IndiaStatsRequestState> {
                 Success(it)
             }
             .onErrorReturn {
@@ -66,7 +64,7 @@ class LatestStatsRepository(
             }.toFlowable()
     }
 
-    private fun saveToDisk(latestStat: Latest) {
+    private fun saveToDisk(latestStat: LatestIndianStats) {
         database.latestStatsDao().insertLatest(latestStat)
     }
 
@@ -84,24 +82,5 @@ class LatestStatsRepository(
                 onError = {
                     emitter.accept(Failure(it.message!!))
                 })
-    }
-
-    fun getLatestStats() {
-        TODO("Not yet implemented")
-    }
-
-    private fun getLatestStatsFromDb() {
-        TODO("Not yet implemented")
-    }
-
-    private fun getLatestStatsFromApi() {
-        TODO("Not yet implemented")
-    }
-    private fun saveToDisk() {
-        TODO("Not yet implemented")
-    }
-
-    fun refreshLatestStats() {
-        TODO("Not yet implemented")
     }
 }

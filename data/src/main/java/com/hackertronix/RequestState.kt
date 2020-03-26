@@ -1,6 +1,7 @@
 package com.hackertronix
 
-import com.hackertronix.model.india.latest.Latest
+import com.hackertronix.model.countries.CountriesStats
+import com.hackertronix.model.india.latest.LatestIndianStats
 import com.hackertronix.model.global.overview.Overview
 
 sealed class OverviewRequestState {
@@ -10,10 +11,17 @@ sealed class OverviewRequestState {
     data class Failure(val error: String) : OverviewRequestState()
 }
 
-sealed class LatestStatsRequestState {
-    object Loading : LatestStatsRequestState()
-    object SuccessWithoutResult: LatestStatsRequestState()
-    data class Success(val latest: Latest) : LatestStatsRequestState()
-    data class Failure(val error: String) : LatestStatsRequestState()
+sealed class IndiaStatsRequestState {
+    object Loading : IndiaStatsRequestState()
+    object SuccessWithoutResult: IndiaStatsRequestState()
+    data class Success(val latest: LatestIndianStats) : IndiaStatsRequestState()
+    data class Failure(val error: String) : IndiaStatsRequestState()
+}
+
+sealed class CountriesStatsRequestState {
+    object Loading : CountriesStatsRequestState()
+    object SuccessWithoutResult: CountriesStatsRequestState()
+    data class Success(val countriesStats: CountriesStats) : CountriesStatsRequestState()
+    data class Failure(val error: String) : CountriesStatsRequestState()
 }
 
