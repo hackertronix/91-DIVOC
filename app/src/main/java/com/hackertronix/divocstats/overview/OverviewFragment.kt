@@ -67,7 +67,7 @@ class OverviewFragment : Fragment() {
             )
             dataSet.setDrawFilled(true)
             dataSet.fillDrawable = gradientDrawable
-
+            confirmed_chart.visibility = View.VISIBLE
             confirmed_chart.apply {
                 description.isEnabled = false
                 setDrawBorders(false)
@@ -91,13 +91,66 @@ class OverviewFragment : Fragment() {
             }
             confirmed_chart.data = LineData(dataSet)
             confirmed_chart.invalidate()
+
+            confirmed_chart.animateX(ANIMATION_DURATION)
+            confirmed_chart.animateY(ANIMATION_DURATION)
         })
+
+        viewModel.getDeathsDataSet().observe(viewLifecycleOwner, Observer { dataSet ->
+
+            dataSet.setDrawValues(false);
+            dataSet.lineWidth = 2f;
+            dataSet.setDrawCircles(false);
+
+            val attrs = intArrayOf(R.color.red)
+            val typedArray = requireActivity().theme.obtainStyledAttributes(attrs)
+            val textColor = typedArray.getColor(0, Color.RED)
+            typedArray.recycle()
+
+            dataSet.color = textColor
+
+            val gradientDrawable = GradientDrawable(
+                GradientDrawable.Orientation.TOP_BOTTOM,
+                intArrayOf(textColor, ColorUtils.setAlphaComponent(textColor, 0x4d))
+            )
+            dataSet.setDrawFilled(true)
+            dataSet.fillDrawable = gradientDrawable
+
+            deaths_chart.visibility = View.VISIBLE
+            deaths_chart.apply {
+                description.isEnabled = false
+                setDrawBorders(false)
+                setDrawGridBackground(false)
+                setDrawBorders(false)
+                setScaleEnabled(false)
+                setPinchZoom(false)
+                isDoubleTapToZoomEnabled = false
+                setTouchEnabled(false)
+                legend.isEnabled = false
+                axisLeft.isEnabled = false
+                axisRight.isEnabled = false
+                xAxis.isEnabled = false
+
+                setVisibleXRangeMaximum(30f)
+                setVisibleXRangeMinimum(10000f)
+                setVisibleYRangeMaximum(dataSet.yMax, LEFT)
+                axisLeft.granularity = 50000f
+                xAxis.granularity = 864000000f
+                xAxis.isGranularityEnabled = true
+            }
+            deaths_chart.data = LineData(dataSet)
+            deaths_chart.invalidate()
+
+            deaths_chart.animateX(ANIMATION_DURATION)
+            deaths_chart.animateY(ANIMATION_DURATION)
+        })
+
     }
 
     private fun attachListeners() {
         locale_card.setOnClickListener {
             activity?.let {
-                (it as MainActivity).showCountryStats(getCountryFromTelephonyManager())
+                (it as MainActivity).showCountryStats("GB")
             }
         }
 
@@ -154,16 +207,19 @@ class OverviewFragment : Fragment() {
 
     private fun getFlagFromLocale(): String {
 
-        return getCountryFromTelephonyManager().toFlagEmoji()
+//        return getCountryFromTelephonyManager().toFlagEmoji()
+        return "GB".toFlagEmoji()
     }
 
     private fun getCountryFromTelephonyManager(): String {
         val telephonyManager =
             activity?.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-        return telephonyManager.simCountryIso
+        return telephonyManager.simCountryIso.toUpperCase()
     }
 
     companion object {
+
+        const val ANIMATION_DURATION = 1000
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             OverviewFragment().apply {

@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.mikephil.charting.data.DataSet
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineDataSet
 import com.hackertronix.OverviewRequestState
@@ -15,7 +14,7 @@ import com.hackertronix.OverviewRequestState.SuccessWithoutResult
 import com.hackertronix.data.repository.OverviewRepository
 import com.hackertronix.divocstats.common.UiState
 import com.hackertronix.divocstats.parseDateToLong
-import com.hackertronix.model.global.daily.DailyStats
+import com.hackertronix.model.global.daily.Daily
 import com.hackertronix.model.global.overview.Overview
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -24,14 +23,16 @@ import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.joda.time.format.DateTimeFormat
-import java.text.SimpleDateFormat
 
 class OverviewViewModel(private val repository: OverviewRepository) : ViewModel() {
 
     private val overviewObservable: Observable<OverviewRequestState> = repository.overviewEmitter
-    private val dailyStatsObservable: Observable<List<DailyStats>> = repository.dailyStatsEmitter
+    private val dailyStatsObservable: Observable<List<Daily>> = repository.dailyStatsEmitter
     private val overviewLiveData = MutableLiveData<Overview>()
+
     private val confirmedDataSetLiveData = MutableLiveData<LineDataSet>()
+    private val recoveredDataSetLiveData = MutableLiveData<LineDataSet>()
+    private val deathsDataSetLiveData = MutableLiveData<LineDataSet>()
 
     private val disposables = CompositeDisposable()
     private val uiState = MutableLiveData<UiState>()
@@ -39,6 +40,8 @@ class OverviewViewModel(private val repository: OverviewRepository) : ViewModel(
     fun getOverview(): LiveData<Overview> = overviewLiveData
     fun getUiState(): LiveData<UiState> = uiState
     fun getConfirmedDataSet(): LiveData<LineDataSet> = confirmedDataSetLiveData
+    fun getRecoveredDataSet(): LiveData<LineDataSet> = recoveredDataSetLiveData
+    fun getDeathsDataSet(): LiveData<LineDataSet> = deathsDataSetLiveData
 
     init {
         repository.getOverview()
@@ -60,14 +63,27 @@ class OverviewViewModel(private val repository: OverviewRepository) : ViewModel(
 
         disposables += dailyStatsObservable.subscribeBy(
             onNext = { dailyStats ->
-                val formatter = DateTimeFormat.forPattern("yyyy-mm-dd")
-                val entries = mutableListOf<Entry>()
+                val confirmedEntries = mutableListOf<Entry>()
+                val recoveredEntries = mutableListOf<Entry>()
+                val deathsEntries = mutableListOf<Entry>()
                 viewModelScope.launch(Dispatchers.IO) {
-                    dailyStats.forEach {stat ->
-                        val entry = Entry(stat.reportDate.parseDateToLong().toFloat(),stat.totalConfirmed.toFloat())
-                        entries.add(entry)
+                    dailyStats.forEach { stat ->
+                        val confirmedEntry =
+                            Entry(stat.reportDate.parseDateToLong().toFloat(), stat.totalConfirmed.toFloat())
+                        confirmedEntries.add(confirmedEntry)
+
+                        val recoveredEntry =
+                            Entry(stat.reportDate.parseDateToLong().toFloat(), stat.recovered.total.toFloat())
+                        recoveredEntries.add(recoveredEntry)
+
+                        val deathsEntry =
+                            Entry(stat.reportDate.parseDateToLong().toFloat(), stat.deaths.total.toFloat())
+                        deathsEntries.add(deathsEntry)
+
                     }
-                    confirmedDataSetLiveData.postValue(LineDataSet(entries,"confirmed"))
+                    confirmedDataSetLiveData.postValue(LineDataSet(confirmedEntries, "confirmed"))
+                    recoveredDataSetLiveData.postValue(LineDataSet(recoveredEntries, "recovered"))
+                    deathsDataSetLiveData.postValue(LineDataSet(deathsEntries, "deaths"))
                 }
             }
         )

@@ -14,7 +14,7 @@ import com.hackertronix.divocstats.common.UiState.Loading
 import com.hackertronix.divocstats.countrystats.CountryStatsAdapter
 import com.hackertronix.divocstats.parseDate
 import com.hackertronix.divocstats.toFlagEmoji
-import com.hackertronix.model.india.latest.Latest
+import com.hackertronix.model.india.latest.LatestIndianStats
 import kotlinx.android.synthetic.main.collapsing_card.confirmed
 import kotlinx.android.synthetic.main.collapsing_card.deaths
 import kotlinx.android.synthetic.main.collapsing_card.recovered
@@ -53,7 +53,7 @@ class IndiaStatsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_country_stats, container, false)
+        return inflater.inflate(R.layout.fragment_india_stats, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -96,14 +96,14 @@ class IndiaStatsFragment : Fragment() {
         recyclerView.adapter = adapter
     }
 
-    private fun setupHeader(latestStat: Latest) {
+    private fun setupHeader(latestStat: LatestIndianStats) {
         confirmed.text = resources.getString(R.string.confirmed_header, totalConfirmed(latestStat))
         recovered.text = resources.getString(R.string.recovered_header, latestStat.data.summary.discharged)
         deaths.text = resources.getString(R.string.deaths_header, latestStat.data.summary.deaths)
         updated_at.text = setDate(latestStat.lastRefreshed.parseDate())
     }
 
-    private fun totalConfirmed(latestStat: Latest): Int {
+    private fun totalConfirmed(latestStat: LatestIndianStats): Int {
         return latestStat.data.summary.confirmedCasesForeign + latestStat.data.summary.confirmedCasesIndian
     }
 

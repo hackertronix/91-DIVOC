@@ -33,3 +33,7 @@ fun String.parseDateToLong(): Long {
     val formatter = DateTimeFormat.forPattern("yyyy-MM-dd")
     return formatter.parseMillis(this)
 }
+
+fun String.parseUTCToLong(): Long {
+    return DateTime(this).toString("yyyy-MM-dd").parseDateToLong()
+}

@@ -8,11 +8,12 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.work.ExistingPeriodicWorkPolicy.KEEP
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
-import com.hackertronix.data.worker.LatestStatsWorker
+import com.hackertronix.data.worker.IndiaStatsWorker
 import com.hackertronix.data.worker.OverviewWorker
 import com.hackertronix.di.databaseModule
 import com.hackertronix.di.networkModule
 import com.hackertronix.di.repositoryModule
+import com.hackertronix.divocstats.countrystats.CountryStatsFragment.Companion.INDIA
 import com.hackertronix.divocstats.di.adaptersModule
 import com.hackertronix.divocstats.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
@@ -49,11 +50,20 @@ class DivocApp : Application() {
         WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork("OverviewWorker", KEEP, request)
 
         val telephonyManager = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-        val countryCode = telephonyManager.simCountryIso
+        val countryCode = telephonyManager.simCountryIso.toUpperCase()
 
-        if (countryCode == "IN") {
-        val latestStatsRequest = PeriodicWorkRequestBuilder<LatestStatsWorker>(1, HOURS).build()
-        WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork("LatestStatsWorker", KEEP, latestStatsRequest)
+        when (countryCode) {
+            INDIA -> {
+                val indiaStatsRequest = PeriodicWorkRequestBuilder<IndiaStatsWorker>(1, HOURS).build()
+                WorkManager.getInstance(applicationContext)
+                    .enqueueUniquePeriodicWork("LatestStatsWorker", KEEP, indiaStatsRequest)
+            }
+            else ->{
+                val latestStatsRequest = PeriodicWorkRequestBuilder<IndiaStatsWorker>(1, HOURS).build()
+                WorkManager.getInstance(applicationContext)
+                    .enqueueUniquePeriodicWork("LatestStatsWorker", KEEP, latestStatsRequest)
+
+            }
         }
     }
 }
