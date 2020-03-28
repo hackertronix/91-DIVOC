@@ -7,16 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineDataSet
 import com.hackertronix.CountriesStatsRequestState
-import com.hackertronix.CountriesStatsRequestState.Failure
-import com.hackertronix.CountriesStatsRequestState.Loading
-import com.hackertronix.CountriesStatsRequestState.Success
-import com.hackertronix.CountriesStatsRequestState.SuccessWithoutResult
+import com.hackertronix.CountriesStatsRequestState.*
 import com.hackertronix.data.repository.CountryStatsRepository
 import com.hackertronix.divocstats.common.UiState
 import com.hackertronix.divocstats.common.UiState.Done
 import com.hackertronix.divocstats.parseUTCToLong
 import com.hackertronix.model.countries.CountriesStats
-import com.hackertronix.model.countries.Latest
 import com.hackertronix.model.countries.Location
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -92,37 +88,36 @@ class CountryStatsViewModel(
     private fun flattenConfirmedTimelines(listOfLocations: List<Location>, countryCode: String) {
         listOfLocations.filter { location ->
             location.countryCode == countryCode
-        }.let { locations ->
+        }.maxBy {
+            it.latest.confirmed
+        }?.let { location ->
 
-            locations.run {
-                val listOfConfirmedTimelines = map { it.timelines.confirmed.timelineConfirmed }
-                val entries = mutableListOf<Entry>()
-                listOfConfirmedTimelines.forEach {  map ->
-                    for ((x, y) in map) {
-                        val entry = Entry(x.parseUTCToLong().toFloat(), y.toFloat())
-                        entries.add(entry)
-                    }
-                }
-                confirmedDataSet.postValue(LineDataSet(entries, "confirmed"))
+            val listOfConfirmedTimelines = location.timelines.confirmed.timelineConfirmed
+            val entries = mutableListOf<Entry>()
+            for ((x, y) in listOfConfirmedTimelines) {
+                val entry = Entry(x.parseUTCToLong().toFloat(), y.toFloat())
+                entries.add(entry)
             }
+
+            confirmedDataSet.postValue(LineDataSet(entries, "confirmed"))
         }
     }
+
     private fun flattenDeathsTimelines(listOfLocations: List<Location>, countryCode: String) {
         listOfLocations.filter { location ->
             location.countryCode == countryCode
-        }.let { locations ->
+        }.maxBy {
+            it.latest.confirmed
+        }?.let { location ->
 
-            locations.run {
-                val listOfDeathsTimelines = map { it.timelines.deaths.timelineDeaths }
-                val entries = mutableListOf<Entry>()
-                listOfDeathsTimelines.forEach { map ->
-                    for ((x, y) in map) {
-                        val entry = Entry(x.parseUTCToLong().toFloat(), y.toFloat())
-                        entries.add(entry)
-                    }
-                }
-                deathsDataSet.postValue(LineDataSet(entries, "deaths"))
+            val listOfDeathsTimelines = location.timelines.deaths.timelineDeaths
+            val entries = mutableListOf<Entry>()
+            for ((x, y) in listOfDeathsTimelines) {
+                val entry = Entry(x.parseUTCToLong().toFloat(), y.toFloat())
+                entries.add(entry)
             }
+
+            deathsDataSet.postValue(LineDataSet(entries, "deaths"))
         }
     }
 
@@ -132,27 +127,10 @@ class CountryStatsViewModel(
     ) {
         listOfLocations.filter { location ->
             location.countryCode == countryCode
-        }.let { locations ->
-
-            locations.run {
-                val totalConfirmed = map { it.latest.confirmed }.sum()
-                val totalRecovered = map { it.latest.recovered }.sum()
-                val totalDeaths = map { it.latest.deaths }.sum()
-
-                val updatedAt = maxBy { it.lastUpdated }!!.lastUpdated
-                val latest = Latest(
-                    confirmed = totalConfirmed,
-                    recovered = totalRecovered, deaths = totalDeaths
-                )
-                val location = Location(
-                    country = first().country,
-                    countryCode = first().countryCode,
-                    lastUpdated = updatedAt,
-                    latest = latest
-                )
-                selectedCountryStatsLiveData.postValue(location)
-            }
-
+        }.maxBy {
+            it.latest.confirmed
+        }?.let {
+            selectedCountryStatsLiveData.postValue(it)
         }
     }
 
