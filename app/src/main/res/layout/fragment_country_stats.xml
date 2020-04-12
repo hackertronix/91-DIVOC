@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         style="@style/TextAppearance.Divoc.CardHeadline"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
                         android:text="Last updated on"
                         android:textColor="@color/android_blue_pastel" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/updated_at"
                         style="@style/TextAppearance.Divoc.SessionTitle"
                         android:layout_width="match_parent"
@@ -87,7 +87,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <TextView
+                        <androidx.appcompat.widget.AppCompatTextView
                             style="@style/TextAppearance.Divoc.CardHeadline"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                             android:layout_marginEnd="@dimen/margin_normal"
                             android:text="@string/confirmed" />
 
-                        <TextView
+                        <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/confirmed_textview"
                             style="@style/TextAppearance.Divoc.CardBody"
                             android:layout_width="match_parent"
@@ -107,6 +107,7 @@
                             android:layout_marginBottom="@dimen/margin_large"
                             android:fontFamily="@font/oswald_bold"
                             android:textAlignment="center"
+                            app:autoSizeTextType="uniform"
                             tools:text="200,000" />
                     </LinearLayout>
 
@@ -147,7 +148,7 @@
                             android:layout_height="match_parent"
                             android:orientation="vertical">
 
-                            <TextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 style="@style/TextAppearance.Divoc.CardHeadline"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -157,7 +158,7 @@
                                 android:text="@string/death"
                                 android:textColor="@color/red" />
 
-                            <TextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/deaths_textview"
                                 style="@style/TextAppearance.Divoc.CardBody"
                                 android:layout_width="match_parent"
@@ -169,6 +170,7 @@
                                 android:fontFamily="@font/oswald_bold"
                                 android:textAlignment="center"
                                 android:textColor="@color/red"
+                                app:autoSizeTextType="uniform"
                                 tools:text="12,780" />
                         </LinearLayout>
 
@@ -182,44 +184,6 @@
                     </FrameLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/graph_card"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_normal"
-                android:layout_marginEnd="@dimen/margin_normal"
-                android:visibility="gone"
-                app:cardElevation="2dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/country_flag"
-                        style="@style/TextAppearance.Divoc.FlagH5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_normal"
-                        android:layout_marginTop="@dimen/margin_normal"
-                        android:layout_marginEnd="@dimen/margin_normal"
-                        android:textColor="@color/android_blue_pastel"
-                        tools:text="🇮🇳" />
-
-                    <TextView
-                        style="@style/TextAppearance.Divoc.SessionTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_normal"
-                        android:text="@string/see_your_country_s_stats"
-                        android:textColor="@color/ads_light_green" />
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

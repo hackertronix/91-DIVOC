@@ -38,9 +38,9 @@ data class Daily(
     @Json(name = "active")
     val active: Int = 0,
     @Json(name = "deltaRecovered")
-    val deltaRecovered: Int = 0,
+    val deltaRecovered: Float = 0f,
     @Json(name = "incidentRate")
-    val incidentRate: Int = 0,
+    val incidentRate: Float = 0f,
     @Json(name = "peopleTested")
     val peopleTested: Int = 0,
 

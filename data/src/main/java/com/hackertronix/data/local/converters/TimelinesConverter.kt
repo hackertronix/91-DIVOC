@@ -12,7 +12,7 @@ class TimelinesConverter {
         val listMyData = Types.newParameterizedType(
             MutableMap::class.java,
             String::class.java,
-            Int::class.java
+            Integer::class.java
         )
         val adapter: JsonAdapter<Map<String, Int>> = moshi.adapter(listMyData)
         return adapter.toJson(listOfLocationObjects)
@@ -24,7 +24,7 @@ class TimelinesConverter {
         val listMyData = Types.newParameterizedType(
             MutableMap::class.java,
             String::class.java,
-            Int::class.java
+            Integer::class.java
         )
         val adapter: JsonAdapter<Map<String, Int>> = moshi.adapter(listMyData)
         return adapter.fromJson(listOfLocationObjectsAsString)!!

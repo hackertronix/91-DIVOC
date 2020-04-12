@@ -1,13 +1,10 @@
 package com.hackertronix.data.repository
 
-import com.hackertronix.CountriesStatsRequestState
-import com.hackertronix.CountriesStatsRequestState.Failure
-import com.hackertronix.CountriesStatsRequestState.Loading
-import com.hackertronix.CountriesStatsRequestState.Success
-import com.hackertronix.CountriesStatsRequestState.SuccessWithoutResult
+import com.hackertronix.CountryStatsRequestState
+import com.hackertronix.CountryStatsRequestState.*
 import com.hackertronix.data.local.Covid19StatsDatabase
 import com.hackertronix.data.network.TimelinesApi
-import com.hackertronix.model.countries.CountriesStats
+import com.hackertronix.model.countries.Location
 import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.Flowable
 import io.reactivex.disposables.CompositeDisposable
@@ -20,17 +17,17 @@ class CountryStatsRepository(
     private val database: Covid19StatsDatabase
 ) {
 
-    val emitter = PublishRelay.create<CountriesStatsRequestState>()
+    val emitter = PublishRelay.create<CountryStatsRequestState>()
     private val disposables = CompositeDisposable()
 
-    fun getLatestCountriesStats() {
+    fun getLatestCountriesStats(countryCode: String) {
         emitter.accept(Loading)
-        disposables += getLatestCountriesStatsFromDb()
-            .flatMap {
-                if (it.isEmpty()) {
+        disposables += getLatestCountryStatFromDb(countryCode)
+            .flatMap { locations ->
+                if (locations.isEmpty()) {
                     return@flatMap getLatestCountriesStatsFromApi()
                 }
-                return@flatMap Flowable.just(Success(it.first()))
+                return@flatMap Flowable.just(Success(locations))
             }
             .subscribeOn(Schedulers.io())
             .subscribeBy(
@@ -43,29 +40,27 @@ class CountryStatsRepository(
             )
     }
 
-    private fun getLatestCountriesStatsFromDb(): Flowable<List<CountriesStats>> {
-        return database.countriesStatsDao().getCountriesStats()
+    private fun getLatestCountryStatFromDb(countryCode: String): Flowable<List<Location>> {
+        return database.countriesStatsDao().getCountryStatsForCountryCode(countryCode)
             .subscribeOn(Schedulers.io())
     }
 
-    private fun getLatestCountriesStatsFromApi(): Flowable<CountriesStatsRequestState> {
+    private fun getLatestCountriesStatsFromApi(): Flowable<CountryStatsRequestState> {
         return apiClient.getTimelinesForAllCountries()
-            .map<CountriesStatsRequestState> {
-                Success(it)
+            .map<CountryStatsRequestState> {
+                saveToDisk(it.locations)
+                return@map SuccessWithoutResult
             }
             .onErrorReturn {
+                it.printStackTrace()
                 Failure(it.message!!)
             }
             .subscribeOn(Schedulers.io())
-            .doOnSuccess { requestState ->
-                when (requestState) {
-                    is Success -> saveToDisk(requestState.countriesStats)
-                }
-            }.toFlowable()
+            .toFlowable()
     }
 
-    private fun saveToDisk(countriesStats: CountriesStats) {
-        database.countriesStatsDao().insertCountryStats(countriesStats)
+    private fun saveToDisk(countriesStats: List<Location>) {
+        database.countriesStatsDao().insertLocations(countriesStats)
     }
 
     fun dispose() {

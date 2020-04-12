@@ -7,6 +7,7 @@ import androidx.work.WorkerParameters
 import com.hackertronix.data.local.Covid19StatsDatabase
 import com.hackertronix.data.network.TimelinesApi
 import com.hackertronix.model.countries.CountriesStats
+import com.hackertronix.model.countries.Location
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
@@ -27,7 +28,7 @@ class LatestStatsWorker(
     override fun doWork(): Result {
         disposables += apiClient.getTimelinesForAllCountries()
             .map {
-                deleteAndSaveLatestStats(it)
+                deleteAndSaveLatestStats(it.locations)
             }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -44,10 +45,10 @@ class LatestStatsWorker(
         return Result.success()
     }
 
-    private fun deleteAndSaveLatestStats(latestStats: CountriesStats) {
+    private fun deleteAndSaveLatestStats(latestStats: List<Location>) {
         Log.d("LatestStats Worker", "Saving data")
         databaseClient.countriesStatsDao().deleteAll()
-        databaseClient.countriesStatsDao().insertCountryStats(latestStats)
+        databaseClient.countriesStatsDao().insertLocations(latestStats)
     }
 
     override fun onStopped() {

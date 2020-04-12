@@ -14,15 +14,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.github.mikephil.charting.components.YAxis.AxisDependency.LEFT
 import com.github.mikephil.charting.data.LineData
-import com.hackertronix.divocstats.MainActivity
-import com.hackertronix.divocstats.R
+import com.hackertronix.divocstats.*
 import com.hackertronix.divocstats.common.UiState.Done
 import com.hackertronix.divocstats.common.UiState.Loading
-import com.hackertronix.divocstats.parseDate
-import com.hackertronix.divocstats.toFlagEmoji
 import kotlinx.android.synthetic.main.fragment_overview.*
 import kotlinx.android.synthetic.main.shimmer_overview.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
 
 
 class OverviewFragment : Fragment() {
@@ -89,11 +87,12 @@ class OverviewFragment : Fragment() {
                 xAxis.granularity = 864000000f
                 xAxis.isGranularityEnabled = true
             }
-            confirmed_chart.data = LineData(dataSet)
-            confirmed_chart.invalidate()
-
-            confirmed_chart.animateX(ANIMATION_DURATION)
-            confirmed_chart.animateY(ANIMATION_DURATION)
+            confirmed_chart.apply {
+                invalidate()
+                data = LineData(dataSet)
+                animateX(ANIMATION_DURATION)
+                animateY(ANIMATION_DURATION)
+            }
         })
 
         viewModel.getDeathsDataSet().observe(viewLifecycleOwner, Observer { dataSet ->
@@ -150,7 +149,7 @@ class OverviewFragment : Fragment() {
     private fun attachListeners() {
         locale_card.setOnClickListener {
             activity?.let {
-                (it as MainActivity).showCountryStats("GB")
+                (it as MainActivity).showCountryStats(getCountryFromTelephonyManager())
             }
         }
 
@@ -193,33 +192,41 @@ class OverviewFragment : Fragment() {
     private fun subscribeToOverviewData() {
         viewModel.getOverview().observe(viewLifecycleOwner, Observer { overview ->
             confirmed_textview.text = String.format("%,d", overview.confirmed.confirmedCasesCount)
-            recovered_textview.text = String.format("%,d", overview.recovered.recoveredCasesCount)
             deaths_textview.text = String.format("%,d", overview.deaths.deathCasesCount)
             updated_at.text = setDate(overview.lastUpdate.parseDate())
+            country_stat_label.text = getCountryNameFromSim()
             country_flag.text = getFlagFromLocale()
         })
     }
+
+    private fun getCountryNameFromSim() = getString(
+        R.string.see_your_country_s_stats,
+        getCountryFromTelephonyManager().toFullCountryName()
+    )
+
 
     private fun setDate(parsedDate: String): String {
         val splitString = parsedDate.split(",")
         return resources.getString(R.string.updated_at, splitString.first(), splitString.last())
     }
 
-    private fun getFlagFromLocale(): String {
+    private fun getFlagFromLocale() = getCountryFromTelephonyManager().toFlagEmoji()
 
-//        return getCountryFromTelephonyManager().toFlagEmoji()
-        return "GB".toFlagEmoji()
-    }
 
     private fun getCountryFromTelephonyManager(): String {
         val telephonyManager =
             activity?.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-        return telephonyManager.simCountryIso.toUpperCase()
+        return telephonyManager.simCountryIso.run {
+            if (this.isEmpty()) {
+                return@run Locale.getDefault().country
+            } else return@run this
+        }
     }
 
     companion object {
 
         const val ANIMATION_DURATION = 1000
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             OverviewFragment().apply {

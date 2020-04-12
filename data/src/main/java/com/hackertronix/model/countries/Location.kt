@@ -10,9 +10,6 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 @Entity
 data class Location(
-    @PrimaryKey(autoGenerate = false)
-    @Json(name = "id")
-    val id: Int = 0,
 
     @Json(name = "country")
     val country: String = "",
@@ -24,6 +21,7 @@ data class Location(
     val province: String = "",
 
     @Json(name = "last_updated")
+    @PrimaryKey(autoGenerate = false)
     val lastUpdated: String = "",
 
     @Embedded(prefix = "latest")

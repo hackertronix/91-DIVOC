@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         style="@style/TextAppearance.Divoc.CardHeadline"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
                         android:text="Last updated on"
                         android:textColor="@color/android_blue_pastel" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/updated_at"
                         style="@style/TextAppearance.Divoc.SessionTitle"
                         android:layout_width="match_parent"
@@ -87,7 +87,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <TextView
+                        <androidx.appcompat.widget.AppCompatTextView
                             style="@style/TextAppearance.Divoc.CardHeadline"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -96,18 +96,19 @@
                             android:layout_marginEnd="@dimen/margin_normal"
                             android:text="@string/confirmed" />
 
-                        <TextView
+                        <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/confirmed_textview"
                             style="@style/TextAppearance.Divoc.CardBody"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="85dp"
                             android:layout_marginStart="@dimen/margin_normal"
                             android:layout_marginTop="@dimen/margin_small"
                             android:layout_marginEnd="@dimen/margin_normal"
                             android:layout_marginBottom="@dimen/margin_large"
                             android:fontFamily="@font/oswald_bold"
                             android:textAlignment="center"
-                            tools:text="200,000" />
+                            app:autoSizeTextType="uniform"
+                            tools:text="100,200,000" />
                     </LinearLayout>
 
                     <com.github.mikephil.charting.charts.LineChart
@@ -115,8 +116,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="bottom"
-                        android:visibility="invisible"
-                        android:layout_margin="@dimen/margin_normal" />
+                        android:layout_margin="@dimen/margin_normal"
+                        android:visibility="invisible" />
 
                 </FrameLayout>
 
@@ -130,46 +131,6 @@
                 android:orientation="horizontal"
                 app:layout_constraintTop_toBottomOf="@id/confirmed_card">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_recovered"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    android:layout_marginBottom="@dimen/margin_normal"
-                    android:layout_weight="1"
-                    app:cardElevation="2dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/TextAppearance.Divoc.CardHeadline"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_normal"
-                            android:layout_marginTop="@dimen/margin_normal"
-                            android:layout_marginEnd="@dimen/margin_normal"
-                            android:text="@string/recovered"
-                            android:textColor="@color/android_green" />
-
-                        <TextView
-                            android:id="@+id/recovered_textview"
-                            style="@style/TextAppearance.Divoc.SmallCardBody"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_normal"
-                            android:layout_marginTop="@dimen/margin_small"
-                            android:layout_marginEnd="@dimen/margin_normal"
-                            android:layout_marginBottom="@dimen/margin_large"
-                            android:fontFamily="@font/oswald_bold"
-                            android:textAlignment="center"
-                            android:textColor="@color/android_green"
-                            tools:text="50,000" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/card_death"
@@ -191,7 +152,7 @@
                             android:layout_height="match_parent"
                             android:orientation="vertical">
 
-                            <TextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 style="@style/TextAppearance.Divoc.CardHeadline"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -201,9 +162,9 @@
                                 android:text="@string/death"
                                 android:textColor="@color/red" />
 
-                            <TextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/deaths_textview"
-                                style="@style/TextAppearance.Divoc.SmallCardBody"
+                                style="@style/TextAppearance.Divoc.CardBody"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/margin_normal"
@@ -213,6 +174,7 @@
                                 android:fontFamily="@font/oswald_bold"
                                 android:textAlignment="center"
                                 android:textColor="@color/red"
+                                app:autoSizeTextType="uniform"
                                 tools:text="12,780" />
                         </LinearLayout>
 
@@ -221,8 +183,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_gravity="bottom"
-                            android:visibility="invisible"
-                            android:layout_margin="@dimen/margin_normal" />
+                            android:layout_margin="@dimen/margin_normal"
+                            android:visibility="invisible" />
                     </FrameLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
@@ -240,24 +202,27 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/country_flag"
-                        style="@style/TextAppearance.Divoc.FlagH5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_normal"
-                        android:layout_marginTop="@dimen/margin_normal"
-                        android:layout_marginEnd="@dimen/margin_normal"
-                        android:textColor="@color/android_blue_pastel"
-                        tools:text="🇮🇳" />
-
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/country_stat_label"
                         style="@style/TextAppearance.Divoc.SessionTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/margin_normal"
                         android:text="@string/see_your_country_s_stats"
                         android:textColor="@color/ads_light_green" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/country_flag"
+                        style="@style/TextAppearance.Divoc.FlagH5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_normal"
+                        android:layout_marginEnd="@dimen/margin_normal"
+                        android:layout_marginBottom="@dimen/margin_normal"
+                        android:textColor="@color/android_blue_pastel"
+                        tools:text="🇮🇳" />
+
+
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>

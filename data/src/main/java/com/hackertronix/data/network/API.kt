@@ -3,6 +3,7 @@ package com.hackertronix.data.network
 import com.hackertronix.data.network.converters.LocationArrayListAdapter
 import com.hackertronix.data.network.converters.TimelineMapAdapter
 import com.hackertronix.model.countries.CountriesStats
+import com.hackertronix.model.countries.Location
 import com.hackertronix.model.global.daily.Daily
 import com.hackertronix.model.global.overview.Overview
 import com.hackertronix.model.india.latest.LatestIndianStats

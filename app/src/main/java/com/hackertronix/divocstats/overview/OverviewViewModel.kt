@@ -97,5 +97,6 @@ class OverviewViewModel(private val repository: OverviewRepository) : ViewModel(
 
     fun refreshOverview() {
         repository.refreshOverview()
+        repository.refreshDailyStats()
     }
 }

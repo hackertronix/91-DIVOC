@@ -6,13 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineDataSet
-import com.hackertronix.CountriesStatsRequestState
-import com.hackertronix.CountriesStatsRequestState.*
+import com.hackertronix.CountryStatsRequestState
+import com.hackertronix.CountryStatsRequestState.*
 import com.hackertronix.data.repository.CountryStatsRepository
 import com.hackertronix.divocstats.common.UiState
 import com.hackertronix.divocstats.common.UiState.Done
 import com.hackertronix.divocstats.parseUTCToLong
-import com.hackertronix.model.countries.CountriesStats
 import com.hackertronix.model.countries.Location
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -25,11 +24,11 @@ class CountryStatsViewModel(
     private val repository: CountryStatsRepository
 ) : ViewModel() {
 
-    private val latestStatsObservable: Observable<CountriesStatsRequestState> = repository.emitter
+    private val latestStatsObservable: Observable<CountryStatsRequestState> =
+        repository.emitter.startWith(Loading)
 
-    private val latestStatsLiveData = MutableLiveData<CountriesStats>()
+    private val latestStatsLiveData = MutableLiveData<List<Location>>()
     private val selectedCountryStatsLiveData = MutableLiveData<Location>()
-
     private val confirmedDataSet = MutableLiveData<LineDataSet>()
     private val deathsDataSet = MutableLiveData<LineDataSet>()
     private val disposables = CompositeDisposable()
@@ -38,7 +37,6 @@ class CountryStatsViewModel(
     private lateinit var selectedCountryCode: String
 
     init {
-        repository.getLatestCountriesStats()
         disposables += latestStatsObservable.subscribeBy(
             onNext = { state ->
                 when (state) {
@@ -46,35 +44,14 @@ class CountryStatsViewModel(
                     is Failure -> uiState.postValue(UiState.Done)
                     is SuccessWithoutResult -> uiState.postValue(UiState.Done)
                     is Success -> {
-                        latestStatsLiveData.postValue(state.countriesStats)
+                        latestStatsLiveData.postValue(state.location)
                         uiState.postValue(UiState.Done)
-                    }
-                }
-            }
-        )
-    }
 
-    fun getLatestStats(): LiveData<CountriesStats> = latestStatsLiveData
-    fun getLatestStatsForCountry(): LiveData<Location> = selectedCountryStatsLiveData
-    fun getConfirmedDataset(): LiveData<LineDataSet> = confirmedDataSet
-    fun getDeathsDataset(): LiveData<LineDataSet> = deathsDataSet
-    fun getUiState(): LiveData<UiState> = uiState
-
-    fun setCountryCode(countryCode: String) {
-        this.selectedCountryCode = countryCode
-
-        disposables += latestStatsObservable.subscribeBy(
-            onNext = { state ->
-                when (state) {
-                    is Loading -> uiState.postValue(UiState.Loading)
-                    is Failure -> uiState.postValue(UiState.Done)
-                    is SuccessWithoutResult -> uiState.postValue(UiState.Done)
-                    is Success -> {
                         viewModelScope.launch(Dispatchers.Default) {
 
-                            flattenCountriesData(state.countriesStats.locations, countryCode)
-                            flattenConfirmedTimelines(state.countriesStats.locations, countryCode)
-                            flattenDeathsTimelines(state.countriesStats.locations, countryCode)
+                            flattenCountriesData(state.location, selectedCountryCode)
+                            flattenConfirmedTimelines(state.location, selectedCountryCode)
+                            flattenDeathsTimelines(state.location, selectedCountryCode)
 
                             uiState.postValue(Done)
 
@@ -83,6 +60,16 @@ class CountryStatsViewModel(
                 }
             }
         )
+    }
+
+    fun getLatestStatsForCountry(): LiveData<Location> = selectedCountryStatsLiveData
+    fun getConfirmedDataset(): LiveData<LineDataSet> = confirmedDataSet
+    fun getDeathsDataset(): LiveData<LineDataSet> = deathsDataSet
+    fun getUiState(): LiveData<UiState> = uiState
+
+    fun setCountryCode(countryCode: String) {
+        this.selectedCountryCode = countryCode
+        repository.getLatestCountriesStats(countryCode)
     }
 
     private fun flattenConfirmedTimelines(listOfLocations: List<Location>, countryCode: String) {
@@ -98,7 +85,6 @@ class CountryStatsViewModel(
                 val entry = Entry(x.parseUTCToLong().toFloat(), y.toFloat())
                 entries.add(entry)
             }
-
             confirmedDataSet.postValue(LineDataSet(entries, "confirmed"))
         }
     }

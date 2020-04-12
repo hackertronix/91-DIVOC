@@ -17,22 +17,22 @@ import com.hackertronix.divocstats.R
 import com.hackertronix.divocstats.common.UiState.Done
 import com.hackertronix.divocstats.common.UiState.Loading
 import com.hackertronix.divocstats.overview.OverviewFragment
-import com.hackertronix.divocstats.overview.OverviewFragment.Companion
 import com.hackertronix.divocstats.overview.OverviewFragment.Companion.ANIMATION_DURATION
 import com.hackertronix.divocstats.parseDate
 import com.hackertronix.divocstats.toFlagEmoji
 import com.hackertronix.model.india.latest.LatestIndianStats
 import kotlinx.android.synthetic.main.collapsing_card.updated_at
+import kotlinx.android.synthetic.main.fragment_country_stats.*
 import kotlinx.android.synthetic.main.fragment_country_stats.appBar
 import kotlinx.android.synthetic.main.fragment_country_stats.confirmed_textview
 import kotlinx.android.synthetic.main.fragment_country_stats.content
-import kotlinx.android.synthetic.main.fragment_country_stats.dead_chart
 import kotlinx.android.synthetic.main.fragment_country_stats.deaths_textview
 import kotlinx.android.synthetic.main.fragment_country_stats.swipeContainer
+import kotlinx.android.synthetic.main.fragment_overview.*
 import kotlinx.android.synthetic.main.fragment_overview.confirmed_chart
-import kotlinx.android.synthetic.main.shimmer_overview.shimmer_view
+import kotlinx.android.synthetic.main.shimmer_overview.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.Locale
+import java.util.*
 
 class CountryStatsFragment : Fragment() {
 
@@ -79,6 +79,8 @@ class CountryStatsFragment : Fragment() {
     private fun subscribeToGraphingData() {
         viewModel.getConfirmedDataset().observe(viewLifecycleOwner, Observer { dataSet ->
 
+            confirmed_chart.invalidate()
+
             dataSet.setDrawValues(false);
             dataSet.lineWidth = 2f;
             dataSet.setDrawCircles(false);
@@ -119,13 +121,12 @@ class CountryStatsFragment : Fragment() {
                 xAxis.isGranularityEnabled = true
             }
             confirmed_chart.data = LineData(dataSet)
-            confirmed_chart.invalidate()
-
             confirmed_chart.animateX(OverviewFragment.ANIMATION_DURATION)
             confirmed_chart.animateY(OverviewFragment.ANIMATION_DURATION)
         })
         viewModel.getDeathsDataset().observe(viewLifecycleOwner, Observer { dataSet ->
 
+            dead_chart.invalidate()
             dataSet.setDrawValues(false);
             dataSet.lineWidth = 2f;
             dataSet.setDrawCircles(false);
@@ -167,8 +168,6 @@ class CountryStatsFragment : Fragment() {
                 xAxis.isGranularityEnabled = true
             }
             dead_chart.data = LineData(dataSet)
-            dead_chart.invalidate()
-
             dead_chart.animateX(ANIMATION_DURATION)
             dead_chart.animateY(ANIMATION_DURATION)
         })
@@ -218,7 +217,11 @@ class CountryStatsFragment : Fragment() {
 
     private fun setDate(parsedDate: String): String {
         val splitString = parsedDate.split(",")
-        return resources.getString(R.string.updated_at_header, splitString.first(), splitString.last())
+        return resources.getString(
+            R.string.updated_at_header,
+            splitString.first(),
+            splitString.last()
+        )
     }
 
     companion object {

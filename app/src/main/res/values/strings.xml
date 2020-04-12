@@ -15,5 +15,5 @@
     <string name="death">Deaths</string>
     <string name="updated_at">📆 %s \u0020  \u0020 🕓 %s</string>
     <string name="updated_at_header">Updated on \u0020 📆 %s \u0020  \u0020 🕓 %s</string>
-    <string name="see_your_country_s_stats">See your country\'s detailed stats</string>
+    <string name="see_your_country_s_stats">See %s\'s detailed stats</string>
 </resources>

@@ -126,7 +126,7 @@ class OverviewRepository(
 
     fun refreshDailyStats() {
         overviewEmitter.accept(Loading)
-        disposables += getOverviewFromApi()
+        disposables += getDailyStatsFromApi()
             .subscribeBy(
                 onComplete = {
                     overviewEmitter.accept(SuccessWithoutResult)

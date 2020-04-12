@@ -2,13 +2,15 @@ package com.hackertronix.divocstats
 
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
+import java.util.*
 
 fun String.toFlagEmoji(): String {
     if (this.length != 2) {
         return this
     }
 
-    val countryCodeCaps = this.toUpperCase() // upper case is important because we are calculating offset
+    val countryCodeCaps =
+        this.toUpperCase() // upper case is important because we are calculating offset
     val firstLetter = Character.codePointAt(countryCodeCaps, 0) - 0x41 + 0x1F1E6
     val secondLetter = Character.codePointAt(countryCodeCaps, 1) - 0x41 + 0x1F1E6
 
@@ -18,6 +20,14 @@ fun String.toFlagEmoji(): String {
     }
 
     return String(Character.toChars(firstLetter)) + String(Character.toChars(secondLetter))
+}
+
+fun String.toFullCountryName(): String {
+    if (this.isNullOrEmpty()) {
+        return this
+    }
+
+    return Locale("",this).displayCountry
 }
 
 fun String.parseDate(): String {
