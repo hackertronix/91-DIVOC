@@ -195,6 +195,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_normal"
                 android:layout_marginEnd="@dimen/margin_normal"
+                android:layout_marginBottom="@dimen/margin_normal"
                 app:cardElevation="2dp">
 
                 <LinearLayout

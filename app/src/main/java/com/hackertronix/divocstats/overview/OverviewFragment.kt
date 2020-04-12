@@ -214,13 +214,14 @@ class OverviewFragment : Fragment() {
 
 
     private fun getCountryFromTelephonyManager(): String {
-        val telephonyManager =
+       /* val telephonyManager =
             activity?.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
         return telephonyManager.simCountryIso.run {
             if (this.isEmpty()) {
                 return@run Locale.getDefault().country
             } else return@run this
-        }
+        }.toUpperCase()*/
+        return "GB"
     }
 
     companion object {

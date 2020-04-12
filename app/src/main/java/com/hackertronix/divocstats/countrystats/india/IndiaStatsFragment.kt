@@ -17,7 +17,6 @@ import com.hackertronix.divocstats.toFlagEmoji
 import com.hackertronix.model.india.latest.LatestIndianStats
 import kotlinx.android.synthetic.main.collapsing_card.confirmed
 import kotlinx.android.synthetic.main.collapsing_card.deaths
-import kotlinx.android.synthetic.main.collapsing_card.recovered
 import kotlinx.android.synthetic.main.collapsing_card.updated_at
 import kotlinx.android.synthetic.main.fragment_india_stats.appBar
 import kotlinx.android.synthetic.main.fragment_india_stats.collapsingToolbar
@@ -98,7 +97,6 @@ class IndiaStatsFragment : Fragment() {
 
     private fun setupHeader(latestStat: LatestIndianStats) {
         confirmed.text = resources.getString(R.string.confirmed_header, totalConfirmed(latestStat))
-        recovered.text = resources.getString(R.string.recovered_header, latestStat.data.summary.discharged)
         deaths.text = resources.getString(R.string.deaths_header, latestStat.data.summary.deaths)
         updated_at.text = setDate(latestStat.lastRefreshed.parseDate())
     }

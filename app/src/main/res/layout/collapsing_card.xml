@@ -22,15 +22,6 @@
             android:textColor="?android:textColorSecondary"
             tools:text="@string/confirmed_header" />
 
-        <TextView
-            android:id="@+id/recovered"
-            style="@style/TextAppearance.Divoc.CollapsingHeader.Label"
-            android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:textAllCaps="true"
-            android:layout_weight="1"
-            android:textColor="@color/android_green"
-            tools:text="@string/recovered_header" />
 
         <TextView
             android:id="@+id/deaths"
