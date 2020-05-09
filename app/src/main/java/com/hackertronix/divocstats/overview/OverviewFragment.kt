@@ -1,10 +1,8 @@
 package com.hackertronix.divocstats.overview
 
-import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.telephony.TelephonyManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.ColorUtils
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.github.mikephil.charting.components.YAxis.AxisDependency.LEFT
+import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.LineData
 import com.hackertronix.divocstats.*
 import com.hackertronix.divocstats.common.UiState.Done
@@ -20,7 +18,6 @@ import com.hackertronix.divocstats.common.UiState.Loading
 import kotlinx.android.synthetic.main.fragment_overview.*
 import kotlinx.android.synthetic.main.shimmer_overview.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
 
 
 class OverviewFragment : Fragment() {
@@ -38,6 +35,7 @@ class OverviewFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpToolbar()
 
+        setupCharts()
         subscribeToOverviewData()
         subscribeToGraphingData()
         subscribeToRefreshState()
@@ -65,33 +63,10 @@ class OverviewFragment : Fragment() {
             )
             dataSet.setDrawFilled(true)
             dataSet.fillDrawable = gradientDrawable
-            confirmed_chart.visibility = View.VISIBLE
             confirmed_chart.apply {
-                description.isEnabled = false
-                setDrawBorders(false)
-                setDrawGridBackground(false)
-                setDrawBorders(false)
-                setScaleEnabled(false)
-                setPinchZoom(false)
-                isDoubleTapToZoomEnabled = false
-                setTouchEnabled(false)
-                legend.isEnabled = false
-                axisLeft.isEnabled = false
-                axisRight.isEnabled = false
-                xAxis.isEnabled = false
-
-                setVisibleXRangeMaximum(30f)
-                setVisibleXRangeMinimum(10000f)
-                setVisibleYRangeMaximum(dataSet.yMax, LEFT)
-                axisLeft.granularity = 50000f
-                xAxis.granularity = 864000000f
-                xAxis.isGranularityEnabled = true
-            }
-            confirmed_chart.apply {
-                invalidate()
+                visibility = View.VISIBLE
                 data = LineData(dataSet)
-                animateX(ANIMATION_DURATION)
-                animateY(ANIMATION_DURATION)
+                animateXY(ANIMATION_DURATION, ANIMATION_DURATION)
             }
         })
 
@@ -115,33 +90,11 @@ class OverviewFragment : Fragment() {
             dataSet.setDrawFilled(true)
             dataSet.fillDrawable = gradientDrawable
 
-            deaths_chart.visibility = View.VISIBLE
             deaths_chart.apply {
-                description.isEnabled = false
-                setDrawBorders(false)
-                setDrawGridBackground(false)
-                setDrawBorders(false)
-                setScaleEnabled(false)
-                setPinchZoom(false)
-                isDoubleTapToZoomEnabled = false
-                setTouchEnabled(false)
-                legend.isEnabled = false
-                axisLeft.isEnabled = false
-                axisRight.isEnabled = false
-                xAxis.isEnabled = false
-
-                setVisibleXRangeMaximum(30f)
-                setVisibleXRangeMinimum(10000f)
-                setVisibleYRangeMaximum(dataSet.yMax, LEFT)
-                axisLeft.granularity = 50000f
-                xAxis.granularity = 864000000f
-                xAxis.isGranularityEnabled = true
+                visibility = View.VISIBLE
+                data = LineData(dataSet)
+                animateXY(ANIMATION_DURATION, ANIMATION_DURATION)
             }
-            deaths_chart.data = LineData(dataSet)
-            deaths_chart.invalidate()
-
-            deaths_chart.animateX(ANIMATION_DURATION)
-            deaths_chart.animateY(ANIMATION_DURATION)
         })
 
     }
@@ -186,6 +139,34 @@ class OverviewFragment : Fragment() {
         activity?.let {
             (it as AppCompatActivity).setSupportActionBar(appBar)
             (it as AppCompatActivity).supportActionBar?.title = it.getString(R.string.overview)
+        }
+    }
+
+    private fun setupCharts() {
+        setupChart(confirmed_chart)
+        setupChart(deaths_chart)
+    }
+
+    private fun setupChart(lineChart: LineChart) {
+        lineChart.apply {
+            description.isEnabled = false
+            setDrawBorders(false)
+            setDrawGridBackground(false)
+            setDrawBorders(false)
+            setScaleEnabled(false)
+            setPinchZoom(false)
+            isDoubleTapToZoomEnabled = false
+            setTouchEnabled(false)
+            legend.isEnabled = false
+            axisLeft.isEnabled = false
+            axisRight.isEnabled = false
+            xAxis.isEnabled = false
+            axisLeft.granularity = 50000f
+            xAxis.granularity = 864000000f
+            xAxis.isGranularityEnabled = true
+
+            setVisibleXRangeMaximum(30f)
+            setVisibleXRangeMinimum(10000f)
         }
     }
 
