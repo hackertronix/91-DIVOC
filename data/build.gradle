@@ -52,7 +52,7 @@ dependencies {
     api "org.koin:koin-androidx-viewmodel:$koin_version"
     api "org.koin:koin-android:$koin_version"
     api "org.koin:koin-core:$koin_version"
-    api 'joda-time:joda-time:2.10.5'
+    api 'joda-time:joda-time:2.10.14'
 
     implementation "com.squareup.moshi:moshi-kotlin:1.9.2"
     kapt "com.squareup.moshi:moshi-kotlin-codegen:1.9.2"
