@@ -23,7 +23,7 @@ object Dependencies {
   const val legacySupport = "androidx.legacy:legacy-support-v4:1.0.0"
   const val jUnit = "junit:junit:4.12"
   const val androidTestJunit = "androidx.test.ext:junit:1.1.1"
-  const val androidTestEspresso = "androidx.test.espresso:espresso-core:3.4.0"
+  const val androidTestEspresso = "androidx.test.espresso:espresso-core:3.5.1"
   const val workRuntime = "androidx.work:work-runtime-ktx:$work_version"
   const val workRx = "android.arch.work:work-rxjava2:$work_version"
   const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
