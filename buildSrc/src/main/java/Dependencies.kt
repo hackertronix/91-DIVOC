@@ -38,7 +38,7 @@ object Dependencies {
   const val roomRx = "androidx.room:room-rxjava2:$room_version"
   const val roomKtx = "androidx.room:room-ktx:$room_version"
   const val roomCompiler = "androidx.room:room-compiler:$room_version"
-  const val rxAndroid = "io.reactivex.rxjava2:rxandroid:2.1.0"
+  const val rxAndroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
   const val rx2 = "io.reactivex.rxjava2:rxjava:2.2.21"
   const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:2.2.0"
   const val koinViewModel = "org.koin:koin-androidx-viewmodel:$koin_version"
