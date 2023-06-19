@@ -22,7 +22,7 @@ object Dependencies {
   const val constraintLayout = "androidx.constraintlayout:constraintlayout:1.1.3"
   const val legacySupport = "androidx.legacy:legacy-support-v4:1.0.0"
   const val jUnit = "junit:junit:4.12"
-  const val androidTestJunit = "androidx.test.ext:junit:1.1.1"
+  const val androidTestJunit = "androidx.test.ext:junit:1.1.5"
   const val androidTestEspresso = "androidx.test.espresso:espresso-core:3.4.0"
   const val workRuntime = "androidx.work:work-runtime-ktx:$work_version"
   const val workRx = "android.arch.work:work-rxjava2:$work_version"
