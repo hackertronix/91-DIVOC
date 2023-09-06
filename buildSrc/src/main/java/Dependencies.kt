@@ -18,7 +18,7 @@ object Versions {
 object Dependencies {
   const val kotlinStdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
   const val appCompat = "androidx.appcompat:appcompat:1.1.0"
-  const val coreKtx = "androidx.core:core-ktx:1.2.0"
+  const val coreKtx = "androidx.core:core-ktx:1.12.0"
   const val constraintLayout = "androidx.constraintlayout:constraintlayout:1.1.3"
   const val legacySupport = "androidx.legacy:legacy-support-v4:1.0.0"
   const val jUnit = "junit:junit:4.12"
