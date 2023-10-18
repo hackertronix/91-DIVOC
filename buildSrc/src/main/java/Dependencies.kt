@@ -30,7 +30,7 @@ object Dependencies {
   const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
   const val lifecycle = "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
   const val material = "com.google.android.material:material:1.1.0"
-  const val recyclerView = "androidx.recyclerview:recyclerview:1.2.1"
+  const val recyclerView = "androidx.recyclerview:recyclerview:1.3.2"
   const val anrWatchDog = "com.github.anrwatchdog:anrwatchdog:1.4.0"
   const val shimmer = "com.facebook.shimmer:shimmer:0.5.0"
   const val mpAndroidCharts = "com.github.PhilJay:MPAndroidChart:3.1.0"
